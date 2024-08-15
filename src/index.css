@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    @font-face {
+      font-family: "Quattrocento";
+      src: url("./font/QuattrocentoSans-Regular.ttf") format("truetype");
+    }
+
+    html {
+        font-family: "Quattrocento";
+    }
+}
