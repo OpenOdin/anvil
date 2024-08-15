@@ -1,0 +1,23 @@
+{
+    "extends": "@tsconfig/node14/tsconfig.json",
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "preserveConstEnums": true,
+        "module": "commonjs",
+        "target": "es2020",
+        "lib": [
+            "dom"
+        ]
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "./test",
+        "/**/test",
+        "./node_modules",
+        "./build",
+        "./dist"
+    ]
+}
