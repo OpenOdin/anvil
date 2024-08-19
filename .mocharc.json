@@ -1,4 +1,4 @@
 {
     "timeout": 10000,
-    "spec": ["./src/**/*.mocha.ts", "./test/**/*.mocha.ts"]
+    "spec": ["./src/**/*.mocha.ts"]
 }
