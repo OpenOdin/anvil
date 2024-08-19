@@ -5,7 +5,7 @@
     "private": false,
     "scripts": {
         "build": "rm -rf ./dist/* ./build && mkdir -p dist && npm run tsc && npm run build-app",
-        "test": "npx tsc && npx mocha -r ts-node/register",
+        "test": "TS_NODE_COMPILER_OPTIONS='{\"allowImportingTsExtensions\": true}' npx mocha -r ts-node/register",
         "release": "rm -rf ./dist/* ./build && mkdir -p dist && npm run tsc && npm run build-app-release",
         "tsc": "npx tsc",
         "build-app": "npx webpack -c ./webpack.config.js && cp -r ./conf-dev/*.json ./src/index.html ./src/favicon.ico ./src/gfx ./node_modules/sql.js/dist/sql-wasm.wasm ./node_modules/openodin/build/src/signatureoffloader/signatureOffloader-worker-browser.js ./node_modules/openodin/build/src/storage/crdt/crdt-worker-browser.js ./dist/ && sed -i.bak \"s/Release commitid/Release ($(git rev-parse --short HEAD))/\" dist/index.js",
@@ -57,10 +57,10 @@
     },
     "dependencies": {
         "minidenticons": "^4.2.0",
-        "openodin": "=0.9.0",
-        "riotjs-simple-router": "0.2.0",
-        "riotjs-simple-state": "0.2.0",
-        "riotjs-simple-typescript": "0.2.0",
+        "openodin": "=0.9.1",
+        "riotjs-simple-router": "0.3.0",
+        "riotjs-simple-state": "0.3.0",
+        "riotjs-simple-typescript": "0.3.1",
         "sql.js": "^1.10.0"
     }
 }
