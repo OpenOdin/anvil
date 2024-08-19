@@ -1,0 +1,75 @@
+import fs from "fs";
+
+import assert from "assert";
+
+import {
+    Wrapped,
+    StateController,
+    Router,
+} from "riotjs-simple-typescript";
+
+import {AnvilAuth1} from "../AnvilAuth1.ts";  // Note: .ts
+
+const sleep = function(delay: number): Promise<void> {
+    return new Promise( resolve => {
+        setTimeout(resolve, delay);
+    });
+}
+
+describe("anvil-auth-1 component", function() {
+    it("should set html input value on mount", async function() {
+        const stateController = new StateController();
+
+        const viewpath = `${__dirname}/../anvil-auth-1.riot`;
+        const html = fs.readFileSync(viewpath, "utf-8");
+
+        const defaultUrl = "https://raw.githubusercontent.com/OpenOdin/anvil/main/package.json";
+
+        const wrapped = new Wrapped(AnvilAuth1, html, {defaultUrl}, stateController);
+
+        assert((wrapped.component.$("#load-url") as HTMLInputElement).value === defaultUrl,
+            "Expected #load-url value to have been set");
+    });
+
+    it("should load state and fetch json", async function() {
+        const stateController = new StateController();
+
+        await stateController.create("auth");
+
+        const router = new Router();
+
+        router.updateLocation("https://example.org");
+
+        router.register({
+            auth2: {
+                match: "",
+                pushURL: "/",
+            }
+        });
+
+        const viewpath = `${__dirname}/../anvil-auth-1.riot`;
+        const html = fs.readFileSync(viewpath, "utf-8");
+
+        const defaultUrl = "https://raw.githubusercontent.com/OpenOdin/anvil/main/package.json";
+
+        const wrapped = new Wrapped(AnvilAuth1, html, {defaultUrl}, stateController, router);
+
+        // We need to sleep to let the component load the state.
+        //
+        await sleep(1);
+
+        await wrapped.component.load();
+
+        const authState = await stateController.load("auth");
+
+        assert(authState.appJSON, "Expected authState.appJSON to be set");
+
+        assert(authState.appJSON.name === "anvil", "Expected authState.appJSON name field to be set");
+
+        await wrapped.component.reset();
+
+        const authState2 = await stateController.load("auth");
+
+        assert(!authState2.appJSON, "Expected authState.appJSON not to be set");
+    });
+});

@@ -1,0 +1,15 @@
+<anvil-auth>
+    <anvil-auth-1 if={router.active.auth1}
+        default-url="/app.json"></anvil-auth-1>
+
+    <anvil-auth-2 if={router.active.auth2}></anvil-auth-2>
+
+    <anvil-auth-3 if={router.active.auth3}></anvil-auth-3>
+
+    <script>
+        import "./anvil-auth.css";
+
+        import {AnvilAuth} from "./AnvilAuth";
+        return new AnvilAuth();
+    </script>
+</anvil-auth>

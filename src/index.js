@@ -7,12 +7,12 @@ router.onFallback( url => {
     console.error("ERROR could not navigate to", url);
 });
 
-let mainComponent;
+let entryComponent;
 
-router.onUpdate( () => mainComponent?.update() );
+router.onUpdate( () => entryComponent?.update() );
 
 import Anvil from "./components/anvil/anvil.riot"
 
 const elm = document.createElement("anvil");
 document.querySelector("body").append(elm)
-mainComponent = riot.component(Anvil)(elm);
+entryComponent = riot.component(Anvil)(elm);

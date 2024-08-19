@@ -1,0 +1,30 @@
+<anvil>
+    <template if={!stateController.ref.openOdin?.isClosed()}>
+        <div if={router.active.auth}>
+            <anvil-auth route={router.active.auth}></anvil-auth>
+        </div>
+
+        <div if={router.active.main}>
+            <anvil-main route={router.active.main}></anvil-main>
+        </div>
+
+        <anvil-404 if={router.active["404"]}></anvil-404>
+    </template>
+
+    <template if={stateController.ref.openOdin?.isClosed()}>
+        <h1>Session ended</h1>
+
+        <div if={stateController.ref.openOdin?.isAuthFailed()}>
+            <h2>Authorization failed</h2>
+        </div>
+
+        Click <a href="#" onclick={createOpenOdin}>here</a> to start a new session.
+    </template>
+
+    <script>
+        import "./anvil.css";
+        import {Anvil} from "./Anvil";
+
+        return new Anvil();
+    </script>
+</anvil>

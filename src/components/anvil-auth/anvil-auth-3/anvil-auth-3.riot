@@ -1,0 +1,25 @@
+<anvil-auth-3>
+    <template if={authState?.appJSON}>
+        <h1>Connect with Datawallet</h1>
+        <h2>Auth step 3</h2>
+
+        <div if={!stateController.ref.openOdin?.isPendingAuth() && !stateController.ref.openOdin.isAuthed()}>
+            You are now ready to autheticate with the OpenOdin DataWallet. <br />
+            Please click the datawallet icon in your browser toolbar.
+        </div>
+
+        <div if={stateController.ref.openOdin?.isPendingAuth()}>
+            Pending authorization, please open DataWallet browser extension to acknowledge.
+        </div>
+    </template>
+
+    <hr />
+    <a href={router.getRoute("auth2")?.pushURL}>Back</a>
+
+    <script>
+        import "./anvil-auth-3.css";
+        import {AnvilAuth3} from "./AnvilAuth3";
+
+        return new AnvilAuth3();
+    </script>
+</anvil-auth-3>

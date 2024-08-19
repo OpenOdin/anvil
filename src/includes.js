@@ -21,6 +21,9 @@ riot.register("anvil-auth-1", AnvilAuth1);
 import AnvilAuth2 from "./components/anvil-auth/anvil-auth-2/anvil-auth-2.riot";
 riot.register("anvil-auth-2", AnvilAuth2);
 
+import AnvilAuth3 from "./components/anvil-auth/anvil-auth-3/anvil-auth-3.riot";
+riot.register("anvil-auth-3", AnvilAuth3);
+
 import "./index.css";
 
 import { minidenticon } from 'minidenticons'
