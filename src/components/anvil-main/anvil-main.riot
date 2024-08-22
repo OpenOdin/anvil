@@ -1,9 +1,89 @@
 <anvil-main>
-    <h1>Anvil main</h1>
+    <div class="flex flex-col w-full h-full">
+        <div class="flex flex-row h-footer">
+            <div class="flex flex-col w-64 sidebar border-r-2 border-slate-300 bg-gradient-to-b from-white via-odingreen-600 to-white">
+
+                <div class="w-full flex flex-row">
+                    <div class="w-20 h-20 m-auto"
+                         title={this.getPublicKey()}>
+                        <minidenticon-svg
+                            username={this.getPublicKey()}
+                            saturation="60" lightness="50">
+                        </minidenticon-svg>
+                    </div>
+                </div>
+
+                <div>
+                    <button
+                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-slate-200">
+                        DATA
+                    </button>
+                    <button
+                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-slate-200">
+                        STORAGE
+                    </button>
+                    <button
+                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-slate-200">
+                        PEERS
+                    </button>
+                    <button
+                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-odingray-600">
+                        SYNC
+                    </button>
+                    <button
+                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-odingray-600">
+                        HELP
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-col flex-1 content">
+                <anvil-data
+                    service={props.service}
+                    class="{!router.active.data ? "hidden": ""}"></anvil-data>
+
+                <div if={router.active.welcome}>
+                    Welcome to OpenOdin Anvil
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row w-full footer border-t border-slate-300 bg-gradient-to-r from-white via-odingreen-600 to-white">
+            <div class="flex flex-col w-64 border-r-2 border-slate-300 p-1">
+                <div>
+                    <span class="truncate block"
+                         title={this.getPublicKey()}>
+                        {this.getPublicKey()} <!-- TODO: place "copy to clipboard" btn here -->
+                    </span>
+                </div>
+
+                <div>
+                    <a class="text-blue-600" href="#" onclick={logout}>Logout</a>
+                </div>
+            </div>
+            <div class="flex justify-around w-full">
+                <div class="flex flex-col">
+                    <div>Storage</div>
+                    <div>{state.serviceWrapper.isStorageConnected() ? "Online" : "Offline"}</div>
+                </div>
+                <div class="flex flex-col">
+                    <div>Peers</div>
+                    <div>0/1 Connected</div>
+                </div>
+                <div class="flex flex-col">
+                    <div>Status</div>
+                    <div>Idle</div>
+                </div>
+            </div>
+
+            <div class="h-full">
+                <img class="h-full" src="./gfx/openodin-logo-standard.png" />
+            </div>
+        </div>
+    </div>
 
     <script>
         import "./anvil-main.css";
-        import {AnvilMain} from "./AnvilMain.js";
+        import {AnvilMain} from "./AnvilMain";
 
         return new AnvilMain();
     </script>

@@ -1,1 +1,15 @@
 anvil-main {}
+
+anvil-main .h-footer {
+    height: calc(100vh - 54px);
+}
+
+anvil-main .sidebar {
+}
+
+anvil-main .content {
+}
+
+anvil-main .footer {
+    height: 54px;
+}
