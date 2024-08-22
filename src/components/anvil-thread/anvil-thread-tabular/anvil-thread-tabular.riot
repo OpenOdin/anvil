@@ -1,0 +1,188 @@
+<anvil-thread-tabular>
+    <div class="flex flex-row gap-x-4">
+        <div class="rounded">
+            <label class="px-4" title="Automatically update with new data as it becomes available locally">
+                Auto update table
+                <input type="checkbox" checked={state.autoUpdate}
+                    onchange={ (e) => setAutoUpdate(e.target.checked)  } />
+            </label>
+        </div>
+
+        <div class="relative group">
+            <button title="Run action on selected nodes"
+                class="rounded shadow text-center min-w-24">Action</button>
+
+            <div class="flex-wrap gap-y-1 items-center justify-center min-w-24 hidden absolute bg-neutral-100 z-10 shadow rounded group-hover:flex">
+                <ul>
+                    <li><button
+                        onclick={action}
+                        class="rounded shadow min-w-20 text-center bg-gray-400 hover:bg-sky-800 active:bg-sky-600">
+                        Delete</button></li>
+                    <li><button
+                        onclick={action}
+                        class="rounded shadow min-w-20 text-center bg-gray-400 hover:bg-sky-800 active:bg-sky-600">
+                        React</button></li>
+                    <li><button
+                        onclick={action}
+                        class="rounded shadow min-w-20 text-center bg-gray-400 hover:bg-sky-800 active:bg-sky-600">
+                        License</button></li>
+                </ul>
+            </div>
+        </div>
+
+        <div>
+            <button title="Create new node"
+            class="rounded shadow px-7 bg-gray-400 hover:bg-sky-800 active:bg-sky-600">(+)</button>
+        </div>
+
+        <div class="flex flex-row">
+            <button if={!props.controller.getThread()}
+                onclick={run}
+                class="px-4 border shadow cursor-pointer rounded bg-green-600 hover:bg-green-800">
+                Run Thread</button>
+
+            <button if={props.controller.getThread()}
+                onclick={close}
+                class="px-4 border shadow cursor-pointer rounded bg-red-600 hover:bg-red-800">
+                Close Thread</button>
+
+            <div class="rounded">
+                <label class="px-4" title="Sync data with peers">
+                    Auto sync with peers
+                    <input type="checkbox" checked={props.controller.isAutoSync()}
+                        onchange={ (e) => this.props.controller.setAutoSync(e.target.checked) } />
+                </label>
+            </div>
+
+            <div if={state.error}
+                class="text-red-800">
+                {state.error}</div>
+        </div>
+    </div>
+
+    <div>
+        <div class="flex flex-row-reverse">
+            <div class="inline relative group">
+                <span class="font-bold">Columns</span>
+                <div class="hidden absolute bg-neutral-100 z-10 shadow rounded group-hover:block">
+                    <ul>
+                        <li each={header in state.headers}>
+                            <input type="checkbox"
+                                checked={header.isChecked}
+                                onchange={ (e) => {header.isChecked = e.target.checked; update()} }
+                                value={header.name} /> {header.display}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <table class="font-mono w-full border-collapse">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="text-right">#</th>
+                    <th class="text-center">
+                        <input class="toggleAllCheckbox"
+                            type="checkbox" onchange={() => toggleSelectAll(e.target.value)} />
+                    </th>
+                    <th each={header in state.headers}
+                        class={header.isChecked === false ? "hidden" : null}>
+                        {header.display}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr if={state.rows.length === 0}>
+                    <td colspan={state.headers.length + 2}>
+                        <i>No results</i>
+                    </td>
+                </tr>
+                <template each={row in state.rows} key={row.columns["id1"].value}>
+                    <tr class={row.index%2 === 0 ? "bg-gray-200" : null}>
+                        <td>
+                            <a href="#" class="block text-right text-indigo-500" title="Hide"
+                                if={row.isExpanded} onclick={() => collapse(row)}>{row.index}</a>
+                            <a href="#" class="block text-right text-indigo-500" title="Show"
+                                if={!row.isExpanded} onclick={() => expand(row)}>{row.index}</a>
+                        </td>
+                        <td class="text-center">
+                            <input type="checkbox"
+                                class="rowcheckbox"
+                                value={row.columns["id1"].value}
+                                onchange={ (e) => {row.isChecked = e.target.checked; toggleAltered();} }
+                                checked={row.isChecked} />
+                        </td>
+                        <td each={header in state.headers}
+                            class={header.isChecked === false ? "hidden" : null}>
+                            <raw style="word-break: break-all;"
+                                raw={row.columns[header.name].display ?? "<i>undefined</i>"} />
+                        </td>
+                    </tr>
+                    <tr if={row.isExpanded} class={row.index%2 === 0 ? "bg-gray-200" : null}>
+                        <td colspan={state.headers.length + 2}>
+                            <anvil-nodedetailscontroller row={row}>
+                            </anvil-nodedetailscontroller>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <div class="flex justify-between pt-1">
+            <div xclass="flex flex-row xgap-x-1">
+                <span>Page {state.page + 1} of {state.pages || 1}&nbsp;</span>
+
+                <button
+                    onclick={firstPage}
+                    class="px-1 border cursor-pointer bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold p-px rounded-l"
+                    disabled={state.page === 0}>First</button>
+
+                <button
+                    onclick={prevPage}
+                    class="px-1 border cursor-pointer bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold p-px"
+                    disabled={state.page === 0}>Prev</button>
+
+                <button
+                    onclick={nextPage}
+                    class="px-1 border cursor-pointer bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold p-px"
+                    disabled={state.page >= state.pages-1}>Next</button>
+
+                <button
+                    onclick={lastPage}
+                    class="px-1 border cursor-pointer bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold p-px rounded-r"
+                    disabled={state.page >= state.pages-1}>Last</button>
+            </div>
+            <div>
+                Total rows: {state.length}.&nbsp;
+
+                Rows per page:
+                <input class="border-2 shadow bg-neutral-200 w-8"
+                    type="text" value={state.rowsPerPage}
+                    onchange={(e) => setRowsPerPage(parseInt(e.target.value))} />
+            </div>
+        </div>
+    </div>
+
+    <script>
+        import {AnvilThreadTabular} from "./AnvilThreadTabular";
+
+        return new AnvilThreadTabular();
+    </script>
+
+    <style>
+        .toggleAllCheckbox:checked {
+            border: none;
+            outline: 2px solid #8ec3fb;
+        }
+
+        .toggleAllCheckbox:checked:indeterminate {
+            border: none;
+            outline: 0;
+        }
+
+        td, th {
+            border: 1px solid #999;
+            padding: 0.5rem;
+            text-align: left;
+        }
+    </style>
+</anvil-thread-tabular>
