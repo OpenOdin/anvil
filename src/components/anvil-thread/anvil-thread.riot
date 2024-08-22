@@ -1,14 +1,14 @@
 <anvil-thread>
     <div class="flex flex-row gap-1">
         <anvil-tab
-            tab-clicked={tabClicked}
+            click-callback={tabClicked}
             id="configure"
             name="Configure"
             active={state.tab === "configure"}>
         </anvil-tab>
 
         <anvil-tab
-            tab-clicked={tabClicked}
+            click-callback={tabClicked}
             id="tabular"
             name="Table"
             active={state.tab === "tabular"}>
@@ -28,14 +28,8 @@
     </div>
 
     <script>
-        export default {
-            onBeforeMount(props, state) {
-                state.tab = "configure";
-            },
+        import {AnvilThread} from "./AnvilThread";
 
-            tabClicked(tab) {
-                this.update({tab});
-            }
-        }
+        return new AnvilThread();
     </script>
 </anvil-thread>
