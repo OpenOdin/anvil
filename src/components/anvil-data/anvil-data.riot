@@ -1,0 +1,38 @@
+<anvil-data>
+    <div class="flex flex-row gap-1">
+        <anvil-tab
+            tab-clicked={tabClicked}
+                id={0}
+            name="Start"
+            active={state.tabId === 0}>
+        </anvil-tab>
+
+        <anvil-tab
+            each={thread in state.threads}
+            tab-clicked={tabClicked}
+            id={thread.getId()}
+            name={thread.getName()}
+            active={state.tabId === thread.getId()}>
+        </anvil-tab>
+    </div>
+
+    <div class="border-t pt-1 border-sky-800">
+        <div
+            class={state.tabId !== 0 ? "hidden" : null}>
+            Start
+        </div>
+
+        <anvil-thread
+            if={props.service.isConnected()}
+            each={thread in state.threads}
+            controller={thread}
+            class={state.tabId !== thread.getId() ? "hidden" : null}>
+        </anvil-thread>
+    </div>
+
+    <script>
+        import {AnvilData} from "./AnvilData";
+
+        return new AnvilData();
+    </script>
+</anvil-data>
