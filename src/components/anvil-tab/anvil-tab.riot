@@ -1,0 +1,13 @@
+<anvil-tab>
+    <a href="#" title={props.title}
+        class="p-1.5 rounded-t-lg {props.active ? "bg-sky-800 text-white" : "bg-neutral-200 text-gray-600 hover:bg-sky-800 hover:text-white"}"
+        onclick={clicked}>
+        {props.name}
+    </a>
+
+    <script>
+        import {AnvilTab} from "./AnvilTab";
+
+        return new AnvilTab();
+    </script>
+</anvil-tab>
