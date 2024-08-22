@@ -16,16 +16,21 @@ import * as riot from "riot";
 
 import {
     OpenOdin,
+    Service,
 } from "openodin";
 
 export interface AnvilProps {}
 
-export interface AnvilState {}
+export interface AnvilState {
+    /** Upon successful authentication Service is created. */
+    service?: Service,
+}
 
 export class Anvil extends Base<AnvilProps, AnvilState> {
     protected routes: Routes = {
         auth: {
-            // We catch the "/auth" part so we can use it in the sub components, just to not have to hard code that value.
+            // We catch the "/auth" part so we can use it in the sub components,
+            // just to not have to hard code that value.
             // It will be accessible as props.route.args[0]
             //
             match: "^(/auth)/.*$",
@@ -37,11 +42,15 @@ export class Anvil extends Base<AnvilProps, AnvilState> {
             pushURL: "/#/auth/0",
         },
         main: {
-            match: "^/",
-            nomatch: "^/auth/",
+            match: "^(/main)/.*$",
 
-            pushURL: "/#/",
+            pushURL: "/#/main/",
         },
+        root: {
+            match: "^/$",
+
+            reroute: "main",
+        }
     };
 
     public createOpenOdin = () => {
@@ -53,13 +62,18 @@ export class Anvil extends Base<AnvilProps, AnvilState> {
 
         openOdin.onPreAuth(() => this.update());
 
-        openOdin.onAuth(() => {
+        openOdin.onAuth((service) => {
+            this.state.service = service;
             this.router.refresh();
         });
 
         openOdin.onAttentionNeeded(() => this.update());
 
-        openOdin.onClose(() => this.update());
+        openOdin.onClose(() => {
+            this.state.service?.close()
+            delete this.state.service;
+            this.update()
+        });
     }
 
     public onBeforeMount(props: AnvilProps, state: AnvilState) {
@@ -69,25 +83,17 @@ export class Anvil extends Base<AnvilProps, AnvilState> {
         // and redirect the flow accordingly.
         //
         this.router.onPreRoute((active) => {
-            // If no route was matched we don't want to mess with the flow.
-            //
-            if (active["404"]) {
-                return;
-            }
+            if (!this.stateController.ref.openOdin?.isAuthed()) {
+                if (!active.auth) {
+                    this.router.replaceRoute("auth");
 
-            if (active.auth) {
-                if (this.stateController.ref.openOdin?.isAuthed()) {
-                    this.router.replaceRoute("main");
-
-                    // Returning true will signal to Router that we have changed stuff and that it
-                    // should not perform an update() before it ends. This is since the match function will rerun anyways.
-                    //
                     return true;
                 }
             }
             else {
-                if (!this.stateController.ref.openOdin?.isAuthed()) {
-                    this.router.replaceRoute("auth");
+                if (active.auth) {
+                    this.router.replaceRoute("main");
+
                     return true;
                 }
             }

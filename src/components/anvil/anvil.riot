@@ -1,12 +1,14 @@
 <anvil>
     <template if={!stateController.ref.openOdin?.isClosed()}>
-        <div if={router.active.auth}>
-            <anvil-auth route={router.active.auth}></anvil-auth>
-        </div>
+        <anvil-auth if={router.active.auth}
+            key="anvil-auth"
+            route={router.active.auth}></anvil-auth>
 
-        <div if={router.active.main}>
-            <anvil-main route={router.active.main}></anvil-main>
-        </div>
+        <anvil-main if={router.active.main && state.service}
+            service={state.service}
+            route={router.active.main}></anvil-main>
+
+        <anvil-loading if={router.active.main && !state.service}></anvil-loading>
 
         <anvil-404 if={router.active["404"]}></anvil-404>
     </template>

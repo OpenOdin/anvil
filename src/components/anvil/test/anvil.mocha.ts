@@ -20,7 +20,7 @@ describe("anvil component (application entry point)", function() {
 
         const router = new Router();
 
-        const routerCtrl = new RouterCtrl(router, "https://example.org/#/some_thing");
+        const routerCtrl = new RouterCtrl(router, "https://example.org/#/main/");
 
         const viewpath = `${__dirname}/../anvil.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
@@ -71,7 +71,7 @@ describe("anvil component (application entry point)", function() {
 
         assert(routerCtrl.getHistory().length === 2, "Expected two history elements");
 
-        assert(routerCtrl.getHistory()[1] === "https://example.org/#/",
+        assert(routerCtrl.getHistory()[1] === "https://example.org/#/main/",
             "Expected last history element to be main route");
     });
 });
