@@ -9,7 +9,7 @@ router.onFallback( url => {
 
 let entryComponent;
 
-router.onUpdate( () => entryComponent?.update() );
+router.onUpdate( () => setImmediate( () => entryComponent?.update() ) );
 
 import Anvil from "./components/anvil/anvil.riot"
 

@@ -8,7 +8,7 @@ import AnvilAuth from "./anvil-auth.riot"
 
 let entryComponent;
 
-router.onUpdate( () => entryComponent?.update() );
+router.onUpdate( () => setImmediate( () => entryComponent?.update() ) );
 
 const elm = document.createElement("anvil-auth");
 
