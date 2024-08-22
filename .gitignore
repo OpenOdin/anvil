@@ -2,3 +2,6 @@ build
 dist
 release
 node_modules
+src/lib/**/*.js
+src/components/**/*.js
+!src/components/**/demo.js
