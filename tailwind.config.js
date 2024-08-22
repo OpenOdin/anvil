@@ -8,8 +8,13 @@ module.exports = {
             fontFamily: {
                 "quattrocento": ["Quattrocento", "sans-serif"] 
             },
-
             colors: {
+                odingreen: {
+                    600: "#4aef85",
+                },
+                odingray: {
+                    600: "#697a82",
+                },
             }
         },
     },
