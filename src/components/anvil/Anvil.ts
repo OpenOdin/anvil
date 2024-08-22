@@ -12,8 +12,6 @@ import {
     Routes,
 } from "riotjs-simple-router";
 
-import * as riot from "riot";
-
 import {
     OpenOdin,
     Service,

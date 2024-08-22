@@ -40,7 +40,7 @@ describe("anvil-auth component", function() {
             },
         };
 
-        const wrapped = new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props, stateController, router);
 
         const authState = await stateController.load("auth");
 
@@ -66,7 +66,7 @@ describe("anvil-auth component", function() {
             },
         };
 
-        const wrapped = new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props, stateController, router);
 
         assert(router.active.auth1, "Expected auth route to be active");
 
@@ -97,7 +97,7 @@ describe("anvil-auth component", function() {
             },
         };
 
-        const wrapped = new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props, stateController, router);
 
         assert(router.active.auth2, "Expected auth2 route to be active");
 
@@ -128,7 +128,7 @@ describe("anvil-auth component", function() {
             },
         };
 
-        const wrapped = new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props, stateController, router);
 
         assert(router.active.auth3, "Expected auth2 route to be active");
 
@@ -159,7 +159,7 @@ describe("anvil-auth component", function() {
             },
         };
 
-        const wrapped = new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props, stateController, router);
 
         assert(router.active["404"], "Expected 404 route to be active");
 

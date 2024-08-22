@@ -10,11 +10,6 @@ import {
     AnvilThreadController,
 } from "../../lib/AnvilThreadController";
 
-type Thread = {
-    id: string,
-    name: string,
-};
-
 export interface AnvilDataProps {
     service: Service;
 }

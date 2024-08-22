@@ -27,7 +27,7 @@ describe("anvil component (application entry point)", function() {
 
         const props = {};
 
-        const wrapped = new Wrapped(Anvil, html, props, stateController, router);
+        new Wrapped(Anvil, html, props, stateController, router);
 
         assert(router.active.auth, "Expected auth route to be active");
 

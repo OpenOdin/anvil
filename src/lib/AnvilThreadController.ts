@@ -8,7 +8,6 @@ import {
     ParseUtil,
     StripObject,
     DeepCopy,
-    DeepEquals,
     Thread,
     FetchRequest,
 } from "openodin";
@@ -263,12 +262,15 @@ export class AnvilThreadController {
         return Object.keys(this.threadTemplate?.postLicense ?? {});
     }
 
+    /**
+     * @throws on parse error or thread not running
+     */
     public async post(name: string, params: any): Promise<DataInterface> {
         if (!this.thread) {
             throw new Error("Thread not running");
         }
 
-        const dataParams = ParseUtil.ParseThreadDataParams(params);
+        ParseUtil.ParseThreadDataParams(params);
 
         const node = await this.thread.post(name, params);
 

@@ -34,10 +34,10 @@ export class ServiceWrapper {
                 console.error("Error in peer", message);
             });
 
-            p2pClient.onMessagingPong( (roundTripTime) => {
+            //p2pClient.onMessagingPong( (roundTripTime) => {
                 // TODO: show this round trip value in the UI instead of in the console.
                 //console.info("Ping/pong round trip time [ms]", roundTripTime);
-            });
+            //});
 
             this.update();
         });
@@ -51,6 +51,7 @@ export class ServiceWrapper {
             this.update();
         });
 
+        //eslint-disable-next-line @typescript-eslint/no-unused-vars
         service.onPeerAuthCertError( (error, authCert) => {
             console.error("Peer's auth cert not valid");
         });
