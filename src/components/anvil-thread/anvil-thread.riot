@@ -1,0 +1,41 @@
+<anvil-thread>
+    <div class="flex flex-row gap-1">
+        <anvil-tab
+            tab-clicked={tabClicked}
+            id="configure"
+            name="Configure"
+            active={state.tab === "configure"}>
+        </anvil-tab>
+
+        <anvil-tab
+            tab-clicked={tabClicked}
+            id="tabular"
+            name="Table"
+            active={state.tab === "tabular"}>
+        </anvil-tab>
+    </div>
+
+    <div class="border-t pt-1 border-sky-800">
+        <anvil-thread-configure
+            controller={props.controller}
+            class={state.tab !== "configure" ? "hidden" : null}>
+        </anvil-thread-configure>
+
+        <anvil-thread-tabular
+            controller={props.controller}
+            class={state.tab !== "tabular" ? "hidden" : null}>
+        </anvil-thread-tabular>
+    </div>
+
+    <script>
+        export default {
+            onBeforeMount(props, state) {
+                state.tab = "configure";
+            },
+
+            tabClicked(tab) {
+                this.update({tab});
+            }
+        }
+    </script>
+</anvil-thread>
