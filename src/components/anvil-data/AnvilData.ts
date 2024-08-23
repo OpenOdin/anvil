@@ -1,5 +1,5 @@
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 import {
@@ -19,7 +19,7 @@ export interface AnvilDataState {
     threads: AnvilThreadController[];
 }
 
-export class AnvilData extends Base<AnvilDataProps, AnvilDataState> {
+export class AnvilData extends RiotBase<AnvilDataProps, AnvilDataState> {
     protected threadId: number = 1;
 
     public onBeforeMount(props: AnvilDataProps, state: AnvilDataState) {

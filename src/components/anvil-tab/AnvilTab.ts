@@ -1,5 +1,5 @@
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 export interface AnvilTabProps {
@@ -11,7 +11,7 @@ export interface AnvilTabProps {
 
 export interface AnvilTabState {}
 
-export class AnvilTab extends Base<AnvilTabProps, AnvilTabState> {
+export class AnvilTab extends RiotBase<AnvilTabProps, AnvilTabState> {
     public clicked = (e: any) => {
         e.preventDefault();
 

@@ -1,5 +1,5 @@
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 import {
@@ -14,7 +14,7 @@ export interface AnvilThreadState {
     tab: string;
 }
 
-export class AnvilThread extends Base<AnvilThreadProps, AnvilThreadState> {
+export class AnvilThread extends RiotBase<AnvilThreadProps, AnvilThreadState> {
     public onBeforeMount(props: AnvilThreadProps, state: AnvilThreadState) {
         state.tab = "configure";
     }

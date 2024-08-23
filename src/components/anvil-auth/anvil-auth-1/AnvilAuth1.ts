@@ -1,7 +1,7 @@
 import assert from "assert";
 
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 import {
@@ -27,7 +27,7 @@ export interface AnvilAuth1Props {
 
 export interface AnvilAuth1State {}
 
-export class AnvilAuth1 extends Base<AnvilAuth1Props, AnvilAuth1State> {
+export class AnvilAuth1 extends RiotBase<AnvilAuth1Props, AnvilAuth1State> {
     protected authState?: SharedAuthState;
     protected stateController = stateController;
     protected router = router;

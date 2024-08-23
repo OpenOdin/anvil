@@ -1,7 +1,7 @@
 import assert from "assert";
 
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 import {
@@ -46,7 +46,7 @@ export interface AnvilThreadTabularState {
     }>;
 }
 
-export class AnvilThreadTabular extends Base<AnvilThreadTabularProps, AnvilThreadTabularState> {
+export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilThreadTabularState> {
     public onBeforeMount(props: AnvilThreadTabularProps, state: AnvilThreadTabularState) {
         state.headers = [
             {name: "id1", display: "id1", isChecked: true},

@@ -5,7 +5,7 @@
  * 3. Load the 404 component if the URL doesn't match any registered route.
  */
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 import {
@@ -27,7 +27,7 @@ export interface AnvilState {
     openOdin?: OpenOdin,
 }
 
-export class Anvil extends Base<AnvilProps, AnvilState> {
+export class Anvil extends RiotBase<AnvilProps, AnvilState> {
     protected router = router;
 
     protected routes: Routes = {

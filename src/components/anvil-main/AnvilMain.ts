@@ -1,5 +1,5 @@
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 import {
@@ -33,7 +33,7 @@ export interface AnvilMainState {
     serviceWrapper: ServiceWrapper;
 }
 
-export class AnvilMain extends Base<AnvilMainProps, AnvilMainState> {
+export class AnvilMain extends RiotBase<AnvilMainProps, AnvilMainState> {
     protected routes: Routes = {};
     protected router = router;
 

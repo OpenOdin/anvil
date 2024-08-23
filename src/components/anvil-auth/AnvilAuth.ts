@@ -1,5 +1,5 @@
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 import {
@@ -29,7 +29,7 @@ export interface AnvilAuthProps {
 
 export interface AnvilAuthState {}
 
-export class AnvilAuth extends Base<AnvilAuthProps, AnvilAuthState> {
+export class AnvilAuth extends RiotBase<AnvilAuthProps, AnvilAuthState> {
     protected routes: Routes = {};
     protected router = router;
     protected stateController = stateController;

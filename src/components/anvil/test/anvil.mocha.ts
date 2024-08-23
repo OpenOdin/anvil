@@ -16,11 +16,20 @@ import {
 //
 import {Anvil} from "../Anvil.ts";  // Note: .ts
 
-describe("anvil component (application entry point)", function() {
+describe("anvil (application entry point)", function() {
     beforeEach(function() {
         // Clear out router configurations.
         //
         router.reset();
+
+        // Mock for OpenOdin
+        //
+        global.addEventListener = () => {};
+
+        //@ts-expect-error
+        global.window = {
+            addEventListener: () => {},
+        };
     });
 
     it("should redirect to auth when not authed", function() {
@@ -63,7 +72,7 @@ describe("anvil component (application entry point)", function() {
             wrapped.component.state.openOdin = openOdin;
         };
 
-        wrapped.init();
+        wrapped.mount();
 
         wrapped.component.createOpenOdin();
 

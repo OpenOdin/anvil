@@ -24,15 +24,6 @@ describe("anvil-auth component", function() {
         router.reset();
 
         stateController.reset();
-
-        // Mock for OpenOdin
-        //
-        global.addEventListener = () => {};
-
-        //@ts-expect-error
-        global.window = {
-            addEventListener: () => {},
-        };
     });
 
     it("should create shared state auth", async function() {
