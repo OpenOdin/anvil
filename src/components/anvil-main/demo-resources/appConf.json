@@ -1,0 +1,62 @@
+{
+    "name": "chat",
+    "version": "0.1.0",
+    "threads": {
+        "presence": {
+            "query": {
+                "parentId": "0000000000000000000000000000000000000000000000000000000000000001",
+                "match": [
+                    {
+                        "nodeType": "Data0"
+                    }
+                ]
+            },
+            "crdt": {
+                "algo": 2,
+                "head": -1
+            },
+            "post": {
+                "message": {
+                    "contentType": "app/chat/presence",
+                    "isLicensed": true
+                }
+            },
+            "postLicense": {
+                "message": {
+                    "extensions": 1
+                }
+            }
+        }
+    },
+    "peers": [
+        {
+            "connection": {
+                "client": {
+                    "socketType": "WebSocket",
+                    "host": "127.0.0.1",
+                    "port": 1117,
+                    "serverPublicKey": "786e9ecceb8afa474f6750b54f40350d47d53dccc67cc4af30cf5444c9205fae",
+                    "reconnectDelay": 10
+                }
+            }
+        }
+    ],
+    "sync": [
+        {
+           "peerPublicKeys": [""],
+           "blobSizeMaxLimit": -1,
+           "threads": [
+               {
+                   "name": "presence",
+                   "threadFetchParams": {
+                       "query": {
+                           "#": "Automatically include licenses and request new licenses to be extended.",
+                           "includeLicenses": 3
+                       }
+                   },
+                   "stream": true
+               }
+           ]
+        }
+    ]
+}
