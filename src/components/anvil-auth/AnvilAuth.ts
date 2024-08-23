@@ -32,7 +32,7 @@ export class AnvilAuth extends Base<AnvilAuthProps, AnvilAuthState> {
 
         this.routes = {
             auth0: {
-                match: "^/0[/]?$",
+                match: "^/$",
                 base: props.route.args[0],
 
                 // If matched then immediately replace url with auth1 and have the auth process rerun.

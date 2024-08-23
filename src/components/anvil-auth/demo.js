@@ -15,6 +15,8 @@ import AnvilAuth from "./anvil-auth.riot"
 
 let entryComponent;
 
+router.pushURL("/#/");
+
 router.onUpdate( () => setImmediate( () => entryComponent?.update() ) );
 
 const elm = document.createElement("anvil-auth");
@@ -25,6 +27,6 @@ entryComponent = riot.component(AnvilAuth)(elm, {
     openOdin,
     defaultUrl: "/app-test.json",
     route: {
-        args: ["/auth"],
+        args: [""],
     }
 });

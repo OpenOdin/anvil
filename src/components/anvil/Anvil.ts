@@ -39,7 +39,7 @@ export class Anvil extends Base<AnvilProps, AnvilState> {
             // We need to do it this way since AnvilAuth has not yet been created so we can't
             // simply use reroute: "auth0".
             //
-            pushURL: "/#/auth/0",
+            pushURL: "/#/auth/",
         },
         main: {
             match: "^(/main)/.*$",
