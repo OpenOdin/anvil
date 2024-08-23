@@ -11,7 +11,7 @@ All components are located in `./src/components`. The directory structure is as:
 ./src/components/anvil
     |
     |- anvil.riot (HTML goes here, style OK to include here, but script should only be two-three lines, see below)
-    |- Anvil.ts (the components controller extending riotjs-simple-typescript)
+    |- Anvil.ts (the components controller extending RiotBase from riotjs-simple-typescript)
     |- Anvil.js (transpiled from Anvil.ts, do not touch)
     |- anvil.css (CSS specific for the anvil tag and must be imported from the .riot file)
     |- demo.js (entry point for when building in demo mode using the build-demo.sh script
@@ -36,16 +36,14 @@ The `Anvil.ts` file looks like:
 
 ```ts
 import {
-    Base,
+    RiotBase,
 } from "riotjs-simple-typescript";
 
 export interface AnvilProps {}
 
 export interface AnvilState {}
 
-export class Anvil extends Base<AnvilProps, AnvilState> {
-    protected stateController: any;
-
+export class Anvil extends RiotBase<AnvilProps, AnvilState> {
     protected onMounted(props: AnvilProps, state: AnvilState) {
     }
 }
@@ -105,6 +103,6 @@ onMounted(props, state) {
 
 In this way the controllers can run in the test environment as expected.
 
-In the (rare) event of `props.name` being updated while the component is mounted you can detect this and re-init the value of the element, just as riot does when values change.
+In the event of `props.name` being updated while the component is mounted you can detect this and re-init the value of the element, just as riot does when values change.
 
 To detect changes in `props` one could for example use the `shouldUpdate(newProps, oldProps)` function, or some other way of observing the `props` values.
