@@ -75,6 +75,10 @@ The example above will build the app using `./src/components/anvil-404/demo.js` 
 
 `npm run build`
 
+## Serve locally watching for changes in dev mode
+
+`npm run watch`
+
 ## Build release
 
 `npm run release`
