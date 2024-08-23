@@ -5,6 +5,14 @@ import {
 } from "riotjs-simple-typescript";
 
 import {
+    stateController,
+} from "riotjs-simple-state";
+
+import {
+    router,
+} from "riotjs-simple-router";
+
+import {
     SharedAuthState,
 } from "../AnvilAuth";
 
@@ -13,7 +21,7 @@ import {
 } from "openodin";
 
 export interface AnvilAuth1Props {
-    defaultUrl: string,
+    defaultUrl: string;
     openOdin: OpenOdin;
 }
 
@@ -21,6 +29,8 @@ export interface AnvilAuth1State {}
 
 export class AnvilAuth1 extends Base<AnvilAuth1Props, AnvilAuth1State> {
     protected authState?: SharedAuthState;
+    protected stateController = stateController;
+    protected router = router;
 
     public onMounted(props: AnvilAuth1Props, state: AnvilAuth1State) {
         this.initUI();
@@ -36,7 +46,7 @@ export class AnvilAuth1 extends Base<AnvilAuth1Props, AnvilAuth1State> {
         ((this.$("#load-url") ?? {}) as HTMLInputElement).value = this.props.defaultUrl;
     }
 
-    public load = async () => {
+    public load = () => {
         const elm = this.$("#load-url") as HTMLInputElement;
 
         if (!elm) {
@@ -46,11 +56,11 @@ export class AnvilAuth1 extends Base<AnvilAuth1Props, AnvilAuth1State> {
         return this.loadURL(elm.value);
     }
 
-    public loadDefault = async () => {
+    public loadDefault = () => {
         return this.loadURL(this.props.defaultUrl);
     }
 
-    public reset = async () => {
+    public reset = () => {
         assert(this.authState, "Expected authState");
 
         if (this.authState) {

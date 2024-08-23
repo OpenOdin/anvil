@@ -1,8 +1,10 @@
 import {
     riot,
-    stateController,
-    router,
 } from "../../includes";
+
+import {
+    router,
+} from "riotjs-simple-router";
 
 const openOdin = {
     isAuthed: () => false,

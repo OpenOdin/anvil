@@ -12,7 +12,14 @@ import {
     OpenOdin,
 } from "openodin";
 
-export interface AnvilAuth3Props {}
+import {
+    router,
+} from "riotjs-simple-router";
+
+import {
+    stateController,
+} from "riotjs-simple-state";
+
 export interface AnvilAuth3Props {
     openOdin: OpenOdin;
 }
@@ -21,6 +28,8 @@ export interface AnvilAuth3State {}
 
 export class AnvilAuth3 extends Base<AnvilAuth3Props, AnvilAuth3State> {
     protected authState?: SharedAuthState;
+    protected router = router;
+    protected stateController = stateController;
 
     public onBeforeMount(props: AnvilAuth3Props, state: AnvilAuth3State) {
         props.openOdin.onOpen(this.handleOpen);

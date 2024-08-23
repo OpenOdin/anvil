@@ -16,21 +16,26 @@ import {
 } from "../../lib/ServiceWrapper";
 
 import {
+    router,
+} from "riotjs-simple-router";
+
+import {
     OpenOdin,
 } from "openodin";
 
 export interface AnvilMainProps {
-    route: RouteParams,
-    service: Service,
+    route: RouteParams;
+    service: Service;
     openOdin: OpenOdin;
 }
 
 export interface AnvilMainState {
-    serviceWrapper: ServiceWrapper,
+    serviceWrapper: ServiceWrapper;
 }
 
 export class AnvilMain extends Base<AnvilMainProps, AnvilMainState> {
     protected routes: Routes = {};
+    protected router = router;
 
     public logout = (e: any) => {
         e.preventDefault();

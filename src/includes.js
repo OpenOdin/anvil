@@ -1,6 +1,4 @@
 import "setimmediate";
-import {StateController} from "riotjs-simple-state";
-import {Router} from "riotjs-simple-router";
 import * as riot from "riot";
 
 import Raw from "./helpers/raw.riot";
@@ -47,17 +45,6 @@ import "./index.css";
 import { minidenticon } from 'minidenticons'
 minidenticon();  // Need to call minidenticon to activate it.
 
-const router = new Router(window);
-
-const stateController = new StateController();
-
-riot.install(function(c) {
-    c.router = router;
-    c.stateController = stateController;
-});
-
 export {
     riot,
-    stateController,
-    router,
 };

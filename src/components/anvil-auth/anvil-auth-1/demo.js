@@ -1,7 +1,10 @@
 import {
     riot,
-    stateController,
 } from "../../../includes";
+
+import {
+    stateController,
+} from "riotjs-simple-state";
 
 stateController.create("auth");
 

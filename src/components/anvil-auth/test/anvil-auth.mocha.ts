@@ -4,15 +4,27 @@ import assert from "assert";
 
 import {
     Wrapped,
-    StateController,
-    Router,
-    RouterCtrl,
 } from "riotjs-simple-typescript";
+
+import {
+    RouterCtrl,
+    router,
+} from "riotjs-simple-router";
+
+import {
+    stateController,
+} from "riotjs-simple-state";
 
 import {AnvilAuth} from "../AnvilAuth.ts";  // Note: .ts
 
 describe("anvil-auth component", function() {
     beforeEach(function() {
+        // Clear out router configurations.
+        //
+        router.reset();
+
+        stateController.reset();
+
         // Mock for OpenOdin
         //
         global.addEventListener = () => {};
@@ -24,10 +36,6 @@ describe("anvil-auth component", function() {
     });
 
     it("should create shared state auth", async function() {
-        const stateController = new StateController();
-
-        const router = new Router();
-
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
@@ -43,20 +51,14 @@ describe("anvil-auth component", function() {
             openOdin,
         };
 
-        new Wrapped(AnvilAuth, html, props, stateController, router);
+        const wrapped = new Wrapped(AnvilAuth, html, props);
 
         const authState = await stateController.load("auth");
 
-        assert(authState, "Expected auth state to be loadable");
+        assert(authState, "Expected auth state to be created");
     });
 
-    it("should reroute from auth0 to auth1", async function() {
-        const stateController = new StateController();
-
-        const router = new Router();
-
-        const routerCtrl = new RouterCtrl(router, "https://example.org/#/auth/0");
-
+    it("should reroute from auth0 to auth1", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
@@ -72,9 +74,11 @@ describe("anvil-auth component", function() {
             openOdin,
         };
 
-        new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props);
 
-        assert(router.active.auth1, "Expected auth route to be active");
+        const routerCtrl = new RouterCtrl(router, "https://example.org/#/auth/");
+
+        assert(router.active.auth1, "Expected auth1 route to be active");
 
         assert(Object.keys(router.active).length === 1, "Expected only one route to be active");
 
@@ -84,13 +88,7 @@ describe("anvil-auth component", function() {
             "Expected last history element to be auth1 route");
     });
 
-    it("should match auth2 route", async function() {
-        const stateController = new StateController();
-
-        const router = new Router();
-
-        const routerCtrl = new RouterCtrl(router, "https://example.org/#/auth/2");
-
+    it("should match auth2 route", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
@@ -106,7 +104,9 @@ describe("anvil-auth component", function() {
             openOdin,
         };
 
-        new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props);
+
+        const routerCtrl = new RouterCtrl(router, "https://example.org/#/auth/2");
 
         assert(router.active.auth2, "Expected auth2 route to be active");
 
@@ -118,13 +118,7 @@ describe("anvil-auth component", function() {
             "Expected last history element to be auth2 url");
     });
 
-    it("should match auth3 route", async function() {
-        const stateController = new StateController();
-
-        const router = new Router();
-
-        const routerCtrl = new RouterCtrl(router, "https://example.org/#/auth/3");
-
+    it("should match auth3 route", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
@@ -140,7 +134,9 @@ describe("anvil-auth component", function() {
             openOdin,
         };
 
-        new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props);
+
+        const routerCtrl = new RouterCtrl(router, "https://example.org/#/auth/3");
 
         assert(router.active.auth3, "Expected auth2 route to be active");
 
@@ -152,13 +148,7 @@ describe("anvil-auth component", function() {
             "Expected last history element to be auth3 url");
     });
 
-    it("should yield 404 when no auth route is matched", async function() {
-        const stateController = new StateController();
-
-        const router = new Router();
-
-        const routerCtrl = new RouterCtrl(router, "https://example.org/#/auth/4");
-
+    it("should yield 404 when no auth route is matched", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
@@ -174,7 +164,9 @@ describe("anvil-auth component", function() {
             openOdin,
         };
 
-        new Wrapped(AnvilAuth, html, props, stateController, router);
+        new Wrapped(AnvilAuth, html, props);
+
+        const routerCtrl = new RouterCtrl(router, "https://example.org/#/auth/4");
 
         assert(router.active["404"], "Expected 404 route to be active");
 

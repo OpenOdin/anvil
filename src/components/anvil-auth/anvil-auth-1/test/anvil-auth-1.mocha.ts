@@ -4,9 +4,15 @@ import assert from "assert";
 
 import {
     Wrapped,
-    StateController,
-    Router,
 } from "riotjs-simple-typescript";
+
+import {
+    router,
+} from "riotjs-simple-router";
+
+import {
+    stateController
+} from "riotjs-simple-state";
 
 import {AnvilAuth1} from "../AnvilAuth1.ts";  // Note: .ts
 
@@ -17,9 +23,15 @@ const sleep = function(delay: number): Promise<void> {
 }
 
 describe("anvil-auth-1 component", function() {
-    it("should set html input value on mount", async function() {
-        const stateController = new StateController();
+    beforeEach(function() {
+        // Clear out configurations.
+        //
+        router.reset();
 
+        stateController.reset();
+    });
+
+    it("should set html input value on mount", function() {
         const viewpath = `${__dirname}/../anvil-auth-1.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 

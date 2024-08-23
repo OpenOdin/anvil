@@ -1,7 +1,10 @@
 import {
     riot,
-    router,
 } from "./includes";
+
+import {
+    router,
+} from "riotjs-simple-router";
 
 router.onFallback( url => {
     console.error("ERROR could not navigate to", url);

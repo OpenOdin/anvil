@@ -3,9 +3,11 @@
  */
 import {
     riot,
-    stateController,
-    router,
 } from "../../includes";
+
+import {
+    router,
+} from "riotjs-simple-router";
 
 import {
     AuthFactory,

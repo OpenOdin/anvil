@@ -8,7 +8,14 @@ import {
     SharedAuthState,
 } from "../AnvilAuth";
 
-export interface AnvilAuth2Props {}
+import {
+    router,
+} from "riotjs-simple-router";
+
+import {
+    stateController,
+} from "riotjs-simple-state";
+
 import {
     OpenOdin,
 } from "openodin";
@@ -23,6 +30,8 @@ export interface AnvilAuth2State {
 
 export class AnvilAuth2 extends Base<AnvilAuth2Props, AnvilAuth2State> {
     protected authState?: SharedAuthState;
+    protected router = router;
+    protected stateController = stateController;
 
     public onBeforeMount(props: AnvilAuth2Props, state: AnvilAuth2State) {
         state.isEdited = false;

@@ -9,13 +9,14 @@ import {
 } from "riotjs-simple-typescript";
 
 import {
-    Routes,
-} from "riotjs-simple-router";
-
-import {
     OpenOdin,
     Service,
 } from "openodin";
+
+import {
+    Routes,
+    router,
+} from "riotjs-simple-router";
 
 export interface AnvilProps {}
 
@@ -27,6 +28,8 @@ export interface AnvilState {
 }
 
 export class Anvil extends Base<AnvilProps, AnvilState> {
+    protected router = router;
+
     protected routes: Routes = {
         auth: {
             // We catch the "/auth" part so we can use it in the sub components,

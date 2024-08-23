@@ -5,7 +5,12 @@ import {
 import {
     Routes,
     RouteParams,
+    router,
 } from "riotjs-simple-router";
+
+import {
+    stateController,
+} from "riotjs-simple-state";
 
 import {
     OpenOdin,
@@ -18,7 +23,7 @@ export type SharedAuthState = {
 };
 
 export interface AnvilAuthProps {
-    route: RouteParams,
+    route: RouteParams;
     openOdin: OpenOdin;
 }
 
@@ -26,6 +31,8 @@ export interface AnvilAuthState {}
 
 export class AnvilAuth extends Base<AnvilAuthProps, AnvilAuthState> {
     protected routes: Routes = {};
+    protected router = router;
+    protected stateController = stateController;
 
     public onBeforeMount(props: AnvilAuthProps, state: AnvilAuthState) {
         this.stateController.create("auth");
