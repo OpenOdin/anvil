@@ -81,7 +81,7 @@ The example above will build the app using `./src/components/anvil-404/demo.js` 
 
 ## Serve
 Serve the `./dist` dir as you wish.  
-Example `cd dist && python python -m http.server 8000`.
+Example `cd dist && python -m http.server 8000`.
 
 ## Testing
 All components controllers should be tested using mocha.
