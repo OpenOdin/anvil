@@ -9,6 +9,13 @@ import {
 } from "../AnvilAuth";
 
 export interface AnvilAuth2Props {}
+import {
+    OpenOdin,
+} from "openodin";
+
+export interface AnvilAuth2Props {
+    openOdin: OpenOdin;
+}
 
 export interface AnvilAuth2State {
     isEdited: boolean,

@@ -1,10 +1,11 @@
 <anvil>
-    <template if={!stateController.ref.openOdin?.isClosed()}>
+    <template if={!state.openOdin?.isClosed()}>
         <anvil-auth if={router.active.auth}
-            key="anvil-auth"
+            openOdin={state.openOdin}
             route={router.active.auth}></anvil-auth>
 
         <anvil-main if={router.active.main && state.service}
+            openOdin={state.openOdin}
             service={state.service}
             route={router.active.main}></anvil-main>
 
@@ -13,10 +14,10 @@
         <anvil-404 if={router.active["404"]}></anvil-404>
     </template>
 
-    <template if={stateController.ref.openOdin?.isClosed()}>
+    <template if={state.openOdin?.isClosed()}>
         <h1>Session ended</h1>
 
-        <div if={stateController.ref.openOdin?.isAuthFailed()}>
+        <div if={state.openOdin?.isAuthFailed()}>
             <h2>Authorization failed</h2>
         </div>
 

@@ -56,9 +56,11 @@ describe("anvil component (application entry point)", function() {
         // Override the creation of the OpenOdin instance.
         //
         wrapped.component.createOpenOdin = () => {
-            stateController.ref.openOdin = {
+            const openOdin: any = {
                 isAuthed: () => true,
             };
+
+            wrapped.component.state.openOdin = openOdin;
         };
 
         wrapped.init();

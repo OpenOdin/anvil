@@ -13,6 +13,9 @@ import {
 } from "openodin";
 
 export interface AnvilAuth3Props {}
+export interface AnvilAuth3Props {
+    openOdin: OpenOdin;
+}
 
 export interface AnvilAuth3State {}
 
@@ -20,7 +23,7 @@ export class AnvilAuth3 extends Base<AnvilAuth3Props, AnvilAuth3State> {
     protected authState?: SharedAuthState;
 
     public onBeforeMount(props: AnvilAuth3Props, state: AnvilAuth3State) {
-        this.stateController.ref.openOdin?.onOpen(this.handleOpen);
+        props.openOdin.onOpen(this.handleOpen);
     }
 
     protected handleOpen = () => {
@@ -28,7 +31,7 @@ export class AnvilAuth3 extends Base<AnvilAuth3Props, AnvilAuth3State> {
 
         assert(appJSON, "Expected appJSON to be set");
 
-        const openOdin = this.stateController.ref.openOdin;
+        const openOdin = this.props.openOdin;
 
         assert(openOdin, "Expected openOdin to be set");
 
@@ -58,6 +61,6 @@ export class AnvilAuth3 extends Base<AnvilAuth3Props, AnvilAuth3State> {
     }
 
     public onUnmounted(props: AnvilAuth3Props, state: AnvilAuth3State) {
-        this.stateController.ref.openOdin?.offOpen(this.handleOpen);
+        props.openOdin?.offOpen(this.handleOpen);
     }
 }

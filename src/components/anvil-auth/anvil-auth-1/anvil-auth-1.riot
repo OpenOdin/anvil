@@ -1,7 +1,7 @@
 <anvil-auth-1>
     <h2>Auth step 1</h2>
 
-    <template if={!authState?.appJSON && !stateController.ref.openOdin.isPendingAuth()}>
+    <template if={!authState?.appJSON && !props.openOdin.isPendingAuth()}>
         <form>
             URL to load app.json:
                 <input id="load-url"
@@ -16,7 +16,7 @@
         </form>
     </template>
 
-    <template if={authState?.appJSON && !stateController.ref.openOdin.isPendingAuth()}>
+    <template if={authState?.appJSON && !props.openOdin.isPendingAuth()}>
         <h3>App configuration loaded</h3>
 
         <a href={router.getRoute("auth2")?.pushURL}>Proceed to step 2</a>
@@ -28,7 +28,7 @@
             class="px-4 border shadow cursor-pointer rounded bg-gray-300 hover:bg-gray-400">Reset to start over</button>
     </template>
 
-    <div if={stateController.ref.openOdin.isPendingAuth()}>
+    <div if={props.openOdin.isPendingAuth()}>
         Pending authorization, please open DataWallet browser extension to acknowledge.
     </div>
 

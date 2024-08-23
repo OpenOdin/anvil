@@ -31,6 +31,8 @@ describe("anvil-auth component", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
+        const openOdin: any = {};
+
         const props = {
             route: {
                 name: "auth",
@@ -38,6 +40,7 @@ describe("anvil-auth component", function() {
                 args: ["/auth"],
                 search: {},
             },
+            openOdin,
         };
 
         new Wrapped(AnvilAuth, html, props, stateController, router);
@@ -57,6 +60,8 @@ describe("anvil-auth component", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
+        const openOdin: any = {};
+
         const props = {
             route: {
                 name: "auth",
@@ -64,6 +69,7 @@ describe("anvil-auth component", function() {
                 args: ["/auth"],
                 search: {},
             },
+            openOdin,
         };
 
         new Wrapped(AnvilAuth, html, props, stateController, router);
@@ -88,6 +94,8 @@ describe("anvil-auth component", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
+        const openOdin: any = {};
+
         const props = {
             route: {
                 name: "auth",
@@ -95,6 +103,7 @@ describe("anvil-auth component", function() {
                 args: ["/auth"],
                 search: {},
             },
+            openOdin,
         };
 
         new Wrapped(AnvilAuth, html, props, stateController, router);
@@ -119,6 +128,8 @@ describe("anvil-auth component", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
+        const openOdin: any = {};
+
         const props = {
             route: {
                 name: "auth",
@@ -126,6 +137,7 @@ describe("anvil-auth component", function() {
                 args: ["/auth"],
                 search: {},
             },
+            openOdin,
         };
 
         new Wrapped(AnvilAuth, html, props, stateController, router);
@@ -150,6 +162,8 @@ describe("anvil-auth component", function() {
         const viewpath = `${__dirname}/../anvil-auth.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
+        const openOdin: any = {};
+
         const props = {
             route: {
                 name: "auth",
@@ -157,6 +171,7 @@ describe("anvil-auth component", function() {
                 args: ["/auth"],
                 search: {},
             },
+            openOdin,
         };
 
         new Wrapped(AnvilAuth, html, props, stateController, router);

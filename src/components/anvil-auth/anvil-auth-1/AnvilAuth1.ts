@@ -8,8 +8,13 @@ import {
     SharedAuthState,
 } from "../AnvilAuth";
 
+import {
+    OpenOdin,
+} from "openodin";
+
 export interface AnvilAuth1Props {
     defaultUrl: string,
+    openOdin: OpenOdin;
 }
 
 export interface AnvilAuth1State {}

@@ -25,18 +25,27 @@ describe("anvil-auth-1 component", function() {
 
         const defaultUrl = "https://raw.githubusercontent.com/OpenOdin/anvil/main/package.json";
 
-        const wrapped = new Wrapped(AnvilAuth1, html, {defaultUrl}, stateController);
+        // openOdin is only used in the view so it can be empty.
+        const openOdin: any = {};
+
+        const wrapped = new Wrapped(AnvilAuth1, html, {defaultUrl, openOdin});
 
         assert((wrapped.component.$("#load-url") as HTMLInputElement).value === defaultUrl,
             "Expected #load-url value to have been set");
     });
 
     it("should load state and fetch json", async function() {
-        const stateController = new StateController();
-
         await stateController.create("auth");
 
-        const router = new Router();
+        const viewpath = `${__dirname}/../anvil-auth-1.riot`;
+        const html = fs.readFileSync(viewpath, "utf-8");
+
+        const defaultUrl = "https://raw.githubusercontent.com/OpenOdin/anvil/main/package.json";
+
+        // openOdin is only used in the view so it can be empty.
+        const openOdin: any = {};
+
+        const wrapped = new Wrapped(AnvilAuth1, html, {defaultUrl, openOdin});
 
         router.updateLocation("https://example.org");
 
@@ -46,13 +55,6 @@ describe("anvil-auth-1 component", function() {
                 pushURL: "/",
             }
         });
-
-        const viewpath = `${__dirname}/../anvil-auth-1.riot`;
-        const html = fs.readFileSync(viewpath, "utf-8");
-
-        const defaultUrl = "https://raw.githubusercontent.com/OpenOdin/anvil/main/package.json";
-
-        const wrapped = new Wrapped(AnvilAuth1, html, {defaultUrl}, stateController, router);
 
         // We need to sleep to let the component load the state.
         //

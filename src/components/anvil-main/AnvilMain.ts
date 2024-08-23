@@ -15,9 +15,14 @@ import {
     ServiceWrapper,
 } from "../../lib/ServiceWrapper";
 
+import {
+    OpenOdin,
+} from "openodin";
+
 export interface AnvilMainProps {
     route: RouteParams,
     service: Service,
+    openOdin: OpenOdin;
 }
 
 export interface AnvilMainState {
@@ -30,7 +35,7 @@ export class AnvilMain extends Base<AnvilMainProps, AnvilMainState> {
     public logout = (e: any) => {
         e.preventDefault();
 
-        this.stateController.ref.openOdin?.close();
+        this.props.openOdin.close();
     }
 
     public onBeforeMount(props: AnvilMainProps, state: AnvilMainState) {

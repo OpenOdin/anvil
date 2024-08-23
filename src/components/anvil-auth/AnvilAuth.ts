@@ -7,6 +7,10 @@ import {
     RouteParams,
 } from "riotjs-simple-router";
 
+import {
+    OpenOdin,
+} from "openodin";
+
 // This shared auth object is for the sub components to use.
 //
 export type SharedAuthState = {
@@ -15,6 +19,7 @@ export type SharedAuthState = {
 
 export interface AnvilAuthProps {
     route: RouteParams,
+    openOdin: OpenOdin;
 }
 
 export interface AnvilAuthState {}

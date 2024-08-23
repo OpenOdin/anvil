@@ -22,6 +22,8 @@ export interface AnvilProps {}
 export interface AnvilState {
     /** Upon successful authentication Service is created. */
     service?: Service,
+
+    openOdin?: OpenOdin,
 }
 
 export class Anvil extends Base<AnvilProps, AnvilState> {
@@ -54,7 +56,7 @@ export class Anvil extends Base<AnvilProps, AnvilState> {
     public createOpenOdin = () => {
         const openOdin = new OpenOdin();
 
-        this.stateController.ref.openOdin = openOdin;
+        this.state.openOdin = openOdin;
 
         openOdin.onAuthFail(() => this.update());
 
@@ -81,7 +83,7 @@ export class Anvil extends Base<AnvilProps, AnvilState> {
         // and redirect the flow accordingly.
         //
         this.router.onPreRoute((active) => {
-            if (!this.stateController.ref.openOdin?.isAuthed()) {
+            if (!this.state.openOdin?.isAuthed()) {
                 if (!active.auth) {
                     this.router.replaceRoute("auth");
 
