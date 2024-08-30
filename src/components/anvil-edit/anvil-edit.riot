@@ -1,0 +1,26 @@
+<anvil-edit>
+    <h2>Edit Application</h2>
+
+    <template if={editState?.appConf}>
+        <textarea id="edit-area"
+            onkeyup={onchange}
+            class="w-full">
+        </textarea>
+
+        <div if={!editState?.isSaved}>
+            <button
+                onclick={save}
+                class="px-4 border shadow cursor-pointer rounded bg-gray-300 hover:bg-gray-400">Save</button>
+            <button
+                onclick={discard}
+                class="px-4 border shadow cursor-pointer rounded bg-gray-300 hover:bg-gray-400">Discard changes</button>
+        </div>
+    </template>
+
+    <script>
+        import "./anvil-edit.css";
+        import {AnvilEdit} from "./AnvilEdit";
+
+        return new AnvilEdit();
+    </script>
+</anvil-edit>

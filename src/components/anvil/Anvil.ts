@@ -1,9 +1,14 @@
 /**
+ * This is the entry point for the application.
+ * The application has three overarching states as defined below.
+ *
  * This entry component is responsible for three things:
  * 1. Redirect to the auth flow (AnvilAuth) if not authed already.
  * 2. Load the main component (AnvilMain) if authed.
  * 3. Load the 404 component if the URL doesn't match any registered route.
  */
+import assert from "assert";
+
 import {
     RiotBase,
 } from "riotjs-simple-typescript";
@@ -14,9 +19,17 @@ import {
 } from "openodin";
 
 import {
-    Routes,
     router,
 } from "riotjs-simple-router";
+
+import {
+    stateController,
+} from "riotjs-simple-state";
+
+export type SharedEditState = {
+    appConf?: Record<string, any>,
+    isSaved?: boolean,
+};
 
 export interface AnvilProps {}
 
@@ -24,39 +37,17 @@ export interface AnvilState {
     /** Upon successful authentication Service is created. */
     service?: Service,
 
-    openOdin?: OpenOdin,
+    openOdin: OpenOdin,
 }
 
 export class Anvil extends RiotBase<AnvilProps, AnvilState> {
+    // Place router here so the .riot template can access it.
+    //
     protected router = router;
 
-    protected routes: Routes = {
-        auth: {
-            // We catch the "/auth" part so we can use it in the sub components,
-            // just to not have to hard code that value.
-            // It will be accessible as props.route.args[0]
-            //
-            match: "^(/auth)/.*$",
+    protected editState: SharedEditState = {};
 
-            // This route pushes to the route "auth0" registered in AnvilAuth.
-            // We need to do it this way since AnvilAuth has not yet been created so we can't
-            // simply use reroute: "auth0".
-            //
-            pushURL: "/#/auth/",
-        },
-        main: {
-            match: "^(/main)/.*$",
-
-            pushURL: "/#/main/",
-        },
-        root: {
-            match: "^/$",
-
-            reroute: "main",
-        }
-    };
-
-    public createOpenOdin = () => {
+    protected createOpenOdin() {
         const openOdin = new OpenOdin();
 
         this.state.openOdin = openOdin;
@@ -67,45 +58,71 @@ export class Anvil extends RiotBase<AnvilProps, AnvilState> {
 
         openOdin.onAuth((service) => {
             this.state.service = service;
-            this.router.refresh();
+
+            router.refresh();
         });
 
         openOdin.onAttentionNeeded(() => this.update());
 
         openOdin.onClose(() => {
             this.state.service?.close()
+
             delete this.state.service;
+
+            this.createOpenOdin();
+
             this.update()
         });
+
+        openOdin.onOpen(this.handleOpen);
+    }
+
+    protected handleOpen = () => {
+        const openOdin = this.state.openOdin;
+
+        assert(openOdin, "Expected openOdin to be set");
+
+        if (openOdin.isAuthed() || openOdin.isPendingAuth() || openOdin.isClosed()) {
+            return;
+        }
+
+        if (!this.editState.appConf) {
+            console.error("Project needs to be loaded before authenticating");
+            return;
+        }
+
+        if (!this.editState.isSaved) {
+            console.error("Project needs to be saved before authenticating");
+            return;
+        }
+
+        let appConf;
+        try {
+            appConf = OpenOdin.ParseAppConf(this.editState.appConf);
+        }
+        catch(e) {
+            console.error(`Could not parse app conf: ${e}`);
+            return;
+        }
+
+        openOdin.auth(appConf);
     }
 
     public onBeforeMount(props: AnvilProps, state: AnvilState) {
+        stateController.create("editState", this.editState);
+
         this.createOpenOdin();
-
-        // Register a preRoute function so we can check auth status
-        // and redirect the flow accordingly.
-        //
-        this.router.onPreRoute((active) => {
-            if (!this.state.openOdin?.isAuthed()) {
-                if (!active.auth) {
-                    this.router.replaceRoute("auth");
-
-                    return true;
-                }
-            }
-            else {
-                if (active.auth) {
-                    this.router.replaceRoute("main");
-
-                    return true;
-                }
-            }
-        });
-
-        this.router.register(this.routes);
     }
 
-    public onUnmounted(props: AnvilProps, state: AnvilState) {
-        this.router.unregister(this.routes);
+    public onMounted(props: AnvilProps, state: AnvilState) {
+        stateController.watch("editState", (editState: SharedEditState) => {
+            this.editState = editState;
+
+            this.update();
+        });
+
+        // We do this to reset any existing URL.
+        //
+        router.pushURL("/#/");
     }
 }

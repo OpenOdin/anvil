@@ -10,6 +10,10 @@ import {
 } from "riotjs-simple-router";
 
 import {
+    stateController,
+} from "riotjs-simple-state";
+
+import {
     AuthFactory,
     SignatureOffloader,
     Service,
@@ -40,13 +44,23 @@ async function main() {
 
     document.querySelector("body").append(elm)
 
-    const props = {
-        service,
-
-        route: {
-            args: [""],
-        }
+    // Change these values to effect the state of the component
+    //
+    const openOdin = {
+        isAuthed: () => true,
+        isPendingAuth: () => false,
+        isClosed: () => false,
+        onOpen: () => undefined,
+        offOpen: () => undefined,
+        close: () => undefined,
     };
+
+    const props = {
+        openOdin,
+        service,
+    };
+
+    stateController.create("editState", {appConf: {}, isSaved:true});
 
     entryComponent = riot.component(AnvilMain)(elm, props);
 }

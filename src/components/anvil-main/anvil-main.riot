@@ -4,51 +4,85 @@
             <div class="flex flex-col w-64 sidebar border-r-2 border-slate-300 bg-gradient-to-b from-white via-odingreen-600 to-white">
 
                 <div class="w-full flex flex-row">
-                    <div class="w-20 h-20 m-auto"
-                         title={this.getPublicKey()}>
+                    <div
+                        if={this.getPublicKey()}
+                        class="w-20 h-20 m-auto"
+                        title={this.getPublicKey()}>
+
                         <minidenticon-svg
                             username={this.getPublicKey()}
                             saturation="60" lightness="50">
                         </minidenticon-svg>
                     </div>
+
+                    <div
+                        if={!this.getPublicKey()}
+                        class="w-20 h-20 m-auto">
+                        <span>Not authed</span>
+                    </div>
+
                 </div>
 
                 <div>
-                    <button
-                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-slate-200">
-                        DATA
-                    </button>
-                    <button
-                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-slate-200">
-                        STORAGE
-                    </button>
-                    <button
-                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-slate-200">
-                        PEERS
-                    </button>
-                    <button
-                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-odingray-600">
-                        SYNC
-                    </button>
-                    <button
-                        class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 xbg-odingray-600">
+                    <a href={router.getRoute("edit").pushURL}
+                        class="block w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
+                        EDIT
+                    </a>
+
+                    <template if={state.service && !state.service.isRunning()}>
+                        <button
+                            onclick={startService}
+                            class="w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
+                            START SERVICE
+                        </button>
+                    </template>
+
+                    <template if={state.serviceWrapper?.isStorageConnected()}>
+                        <a href={router.getRoute("data").pushURL}
+                            class="block w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
+                            THREADS
+                        </button>
+
+                        <a href={router.getRoute("storage").pushURL}
+                            class="block w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
+                            STORAGE STATUS
+                        </button>
+
+                        <a href={router.getRoute("peers").pushURL}
+                            class="block w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
+                            PEERS n' SYNC
+                        </button>
+                    </template>
+
+                    <a href={router.getRoute("help").pushURL}
+                        class="block w-full h-24 text-2xl border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
                         HELP
                     </button>
                 </div>
             </div>
+
             <div class="flex flex-col flex-1 content">
-                <anvil-data
-                    service={props.service}
+                <anvil-edit
+                    class="{!router.active.edit ? "hidden": ""}"></anvil-edit>
+
+                <anvil-data if={state.service}
+                    service={state.service}
                     class="{!router.active.data ? "hidden": ""}"></anvil-data>
 
                 <div if={router.active.welcome}>
-                    Welcome to OpenOdin Anvil
+                    <h1>Welcome to OpenOdin Anvil</h1>
+                </div>
+
+                <div if={router.active.help}>
+                    <h1>Help on OpenOdin Anvil</h1>
                 </div>
             </div>
         </div>
 
         <div class="flex flex-row w-full footer border-t border-slate-300 bg-gradient-to-r from-white via-odingreen-600 to-white">
-            <div class="flex flex-col w-64 border-r-2 border-slate-300 p-1">
+            <div
+                if={this.getPublicKey()}
+                class="flex flex-col w-64 border-r-2 border-slate-300 p-1">
                 <div>
                     <span class="truncate block"
                          title={this.getPublicKey()}>
@@ -58,12 +92,19 @@
 
                 <div>
                     <a class="text-blue-600" href="#" onclick={logout}>Logout</a>
+
+                    <button if={state.service?.isRunning()}
+                        onclick={stopService}
+                        class="border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
+                        Stop service
+                    </button>
+
                 </div>
             </div>
             <div class="flex justify-around w-full">
                 <div class="flex flex-col">
                     <div>Storage</div>
-                    <div>{state.serviceWrapper.isStorageConnected() ? "Online" : "Offline"}</div>
+                    <div>{state.serviceWrapper?.isStorageConnected() ? "Online" : "Offline"}</div>
                 </div>
                 <div class="flex flex-col">
                     <div>Peers</div>

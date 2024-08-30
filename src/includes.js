@@ -13,17 +13,11 @@ riot.register("anvil-waiting", AnvilWaiting);
 import AnvilMain from "./components/anvil-main/anvil-main.riot";
 riot.register("anvil-main", AnvilMain);
 
-import AnvilAuth from "./components/anvil-auth/anvil-auth.riot";
-riot.register("anvil-auth", AnvilAuth);
+import AnvilProjects from "./components/anvil-projects/anvil-projects.riot";
+riot.register("anvil-projects", AnvilProjects);
 
-import AnvilAuth1 from "./components/anvil-auth/anvil-auth-1/anvil-auth-1.riot";
-riot.register("anvil-auth-1", AnvilAuth1);
-
-import AnvilAuth2 from "./components/anvil-auth/anvil-auth-2/anvil-auth-2.riot";
-riot.register("anvil-auth-2", AnvilAuth2);
-
-import AnvilAuth3 from "./components/anvil-auth/anvil-auth-3/anvil-auth-3.riot";
-riot.register("anvil-auth-3", AnvilAuth3);
+import AnvilEdit from "./components/anvil-edit/anvil-edit.riot";
+riot.register("anvil-edit", AnvilEdit);
 
 import AnvilData from "./components/anvil-data/anvil-data.riot";
 riot.register("anvil-data", AnvilData);

@@ -4,7 +4,7 @@ import {
 
 import {
     Routes,
-    RouteParams,
+    router,
 } from "riotjs-simple-router";
 
 import {
@@ -16,26 +16,34 @@ import {
 } from "../../lib/ServiceWrapper";
 
 import {
-    router,
-} from "riotjs-simple-router";
-
-import {
     OpenOdin,
 } from "openodin";
 
 export interface AnvilMainProps {
-    route: RouteParams;
-    service: Service;
+    // set when authed
+    //
+    service?: Service;
+
     openOdin: OpenOdin;
 }
 
 export interface AnvilMainState {
-    serviceWrapper: ServiceWrapper;
+    service?: Service;
+    serviceWrapper?: ServiceWrapper;
+}
+
+function Intersection(a: string[], b: string[]): string[] {
+    const o: {[key: string]: boolean} = {};
+    a.forEach( key => o[key] = true );
+    return b.filter( key => o[key] );
 }
 
 export class AnvilMain extends RiotBase<AnvilMainProps, AnvilMainState> {
-    protected routes: Routes = {};
+    // Place router here so the .riot template can access it.
+    //
     protected router = router;
+
+    protected routes: Routes = {};
 
     public logout = (e: any) => {
         e.preventDefault();
@@ -43,47 +51,110 @@ export class AnvilMain extends RiotBase<AnvilMainProps, AnvilMainState> {
         this.props.openOdin.close();
     }
 
+    public onBeforeUpdate(props: AnvilMainProps, state: AnvilMainState) {
+
+        // If the Service object has been set/reset
+        //
+        if (props.service !== state.service) {
+            state.service = props.service;
+
+            if (!state.service) {
+                delete state.serviceWrapper;
+            }
+            else {
+                state.serviceWrapper = new ServiceWrapper(state.service);
+
+                state.serviceWrapper.onUpdate( () => this.update() );
+            }
+        }
+    }
+
     public onBeforeMount(props: AnvilMainProps, state: AnvilMainState) {
-        state.serviceWrapper = new ServiceWrapper(props.service);
 
-        state.serviceWrapper.onUpdate( () => this.update() );
+        // Register a preRoute function so we can check auth status
+        // and redirect the flow accordingly.
+        //
+        router.onPreRoute((active, requireAuth) => {
+            if (requireAuth && !this.props.openOdin?.isAuthed()) {
+                router.replaceRoute("welcome");
 
-        props.service.start();
+                return true;
+            }
 
-        const base = props.route.args[0];
+            if (!this.state.service) {
+                if (Intersection(Object.keys(active), ["data", "peers", "storage"]).length > 0) {
+                    router.replaceRoute("edit");
+
+                    return true;
+                }
+            }
+        });
 
         this.routes = {
             welcome: {
                 match: "^/$",
-
-                pushURL: `/#${base}/`,
-
-                base,
-
-                subGroup: "main",
+                pushURL: `/#/`,
+            },
+            help: {
+                match: "^/help/.*$",
+                pushURL: `/#/help/`,
+            },
+            edit: {
+                match: "^/edit/.*$",
+                pushURL: "/#/edit/",
             },
             data: {
                 match: "^/data/.*$",
-
                 pushURL: "/#/data/",
-
-                base,
-
-                subGroup: "main",
+                requireAuth: true,
+            },
+            peers: {
+                match: "^/peers/.*$",
+                pushURL: "/#/peers/",
+                requireAuth: true,
+            },
+            storage: {
+                match: "^/storage/.*$",
+                pushURL: "/#/storage/",
+                requireAuth: true,
             },
         };
 
-        this.router.register(this.routes);
+        router.register(this.routes);
+    }
+
+    public onMounted(props: AnvilMainProps, state: AnvilMainState) {
+        // We do this to reset any existing URL.
+        //
+        router.pushRoute("edit");
+    }
+
+    public startService = () => {
+        // TODO: hook error event on service
+        if (this.state.service && !this.state.service.isRunning()) {
+            // TODO display waiting modal
+            this.state.service.start();
+
+            this.update();
+        }
+    }
+
+    public stopService = () => {
+        if (this.state.service && this.state.service.isRunning()) {
+            this.state.service.stop();
+
+            router.pushRoute("edit");
+        }
     }
 
     /**
      * @returns public key as hex-string
      */
-    public getPublicKey(): string {
-        return this.props.service.getPublicKey().toString("hex");
+    public getPublicKey(): string | undefined {
+        return this.state.service?.getPublicKey().toString("hex");
     }
 
     public onUnmounted(props: AnvilMainProps, state: AnvilMainState) {
-        this.router.unregister(this.routes);
+        router.reset();
     }
 }
