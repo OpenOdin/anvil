@@ -1,7 +1,6 @@
 import {
     Service,
     DataInterface,
-    //NodeInterface,
     ThreadTemplate,
     ThreadFetchParams,
     CRDTViewItem,
@@ -18,21 +17,27 @@ export class AnvilThreadController {
     protected originalThreadTemplate: Record<string, any>;
     protected originalThreadFetchParams: Record<string, any>;
 
-    //protected allNodes: NodeInterface[] = [];
-    //protected allNodesKey: {[id1: string]: NodeInterface} = {};
-
     protected autoSync: boolean = true;
 
     protected handlers: {[name: string]: ( (...args: any) => void)[]} = {};
+
+    protected threadFetchParams: Record<string, any> = {};
 
     constructor(
         protected service: Service,
         protected id: number,
         protected name: string,
         protected threadTemplate: Record<string, any>,
-        protected threadFetchParams: Record<string, any> = {},
+        threadFetchParams?: Record<string, any>,
         thread?: Thread)
     {
+
+        if (!threadFetchParams) {
+            threadFetchParams = this.calcMissingFetchParams(threadTemplate);
+        }
+
+        this.threadFetchParams = threadFetchParams;
+
         this.originalThreadTemplate = DeepCopy(threadTemplate);
         this.originalThreadFetchParams = DeepCopy(threadFetchParams);
 
@@ -158,6 +163,18 @@ export class AnvilThreadController {
         return [true, undefined, fetchRequest];
     }
 
+    public calcMissingFetchParams(threadTemplate: Record<string, any>): Record<string, any> {
+        const params: Record<string, any> = {
+            query: {},
+        };
+
+        if (!threadTemplate.query?.parentId?.length) {
+            params.query.parentId = "0000000000000000000000000000000000000000000000000000000000000000";
+        }
+
+        return params;
+    }
+
     public getId(): number {
         return this.id;
     }
@@ -184,7 +201,7 @@ export class AnvilThreadController {
         this.hookEvent("change", cb);
     }
 
-    public start(): [boolean, string?] {
+    public start(): [boolean, string?, FetchRequest?] {
         if (this.thread) {
             throw new Error("Thread already running");
         }
@@ -200,14 +217,12 @@ export class AnvilThreadController {
             }
 
             this.thread = Thread.fromService(threadTemplate, threadFetchParams, this.service);
-            //this.allNodes = [];
-            //this.allNodesKey = {};
 
             this.hookThread();
 
             this.setAutoSync(this.autoSync);
 
-            return [true];
+            return [true, undefined, ret[2]];
         }
         catch(e) {
             console.error(e);
@@ -226,10 +241,6 @@ export class AnvilThreadController {
         });
 
         this.thread.onClose( () => {
-            //this.allNodes = [];
-
-            //this.allNodesKey = {};
-
             delete this.thread;
 
             this.triggerEvent("update");
@@ -285,24 +296,6 @@ export class AnvilThreadController {
         return Buffer.from(hex, "hex").toString();
     }
 
-    //public getNodes(): NodeInterface[] {
-        //return this.allNodes;
-        //return [
-        ////@ts-ignore
-            //{
-                //getId: function() { return Buffer.alloc(32).fill(1); },
-                //getId1: function() { return Buffer.alloc(32).fill(1); },
-                //getId2: function() { return undefined; }
-            //},
-        ////@ts-ignore
-            //{
-                //getId: function() { return Buffer.alloc(32).fill(3); },
-                //getId1: function() { return Buffer.alloc(32).fill(2); },
-                //getId2: function() { return Buffer.alloc(32).fill(3); },
-            //},
-        //];
-    //}
-
     public isAutoSync(): boolean {
         return this.autoSync;
     }
@@ -319,19 +312,6 @@ export class AnvilThreadController {
 
         this.triggerEvent("update");
     }
-
-    //protected handleOnData(added: NodeInterface[]) {
-        //added.forEach( node => {
-            //const id1Str = node.getId1()!.toString("hex");
-
-            //if (!this.allNodesKey[id1Str]) {
-                //this.allNodesKey[id1Str] = node;
-                //this.allNodes.push(node);
-            //}
-        //});
-
-        //this.triggerEvent("data");
-    //}
 
     protected hookEvent(name: string, callback: ( (...args: any[]) => void)) {
         const cbs = this.handlers[name] || [];
