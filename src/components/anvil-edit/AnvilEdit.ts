@@ -67,8 +67,6 @@ export class AnvilEdit extends RiotBase<AnvilEditProps, AnvilEditState> {
 
         try {
             this.editState.appConf = JSON.parse(value);
-
-            stateController.publish("editState", this.editState);
         }
         catch(e) {
             alert("Error in JSON");
@@ -77,6 +75,8 @@ export class AnvilEdit extends RiotBase<AnvilEditProps, AnvilEditState> {
         }
 
         this.editState.isSaved = true;
+
+        stateController.publish("editState", this.editState);
 
         this.update();
     }

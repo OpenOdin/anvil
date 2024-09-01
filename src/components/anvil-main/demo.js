@@ -22,7 +22,8 @@ import {
 
 import AnvilMain from "./anvil-main.riot"
 
-const appConf = ParseUtil.ParseApplicationConf(require("./demo-resources/appConf.json"));
+const appConfRaw = require("./demo-resources/appConf.json");
+const appConf = ParseUtil.ParseApplicationConf(appConfRaw);
 const walletConf = ParseUtil.ParseWalletConf(require("./demo-resources/wallet.json"));
 
 async function main() {
@@ -60,7 +61,7 @@ async function main() {
         service,
     };
 
-    stateController.create("editState", {appConf: {}, isSaved:true});
+    stateController.create("editState", {appConf: appConfRaw, isSaved:true});
 
     entryComponent = riot.component(AnvilMain)(elm, props);
 }
