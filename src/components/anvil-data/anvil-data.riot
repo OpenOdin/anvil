@@ -1,36 +1,43 @@
 <anvil-data>
     <div class="flex flex-row gap-1">
         <anvil-tab
-            click-callback={tabClicked}
-            id={0}
-            name="Start"
-            active={state.tabId === 0}>
-        </anvil-tab>
-
-        <anvil-tab
+            if={props.service.isConnected()}
             each={thread in state.threads}
             click-callback={tabClicked}
             id={thread.getId()}
             name={thread.getName()}
             active={state.tabId === thread.getId()}>
         </anvil-tab>
+
+        <anvil-tab
+            if={props.service.isConnected()}
+            click-callback={openThread}
+            id="new-thread"
+            name="+"
+            active={false}>
+        </anvil-tab>
     </div>
 
     <div class="border-t pt-1 border-sky-800">
-        <div
-            class={state.tabId !== 0 ? "hidden" : null}>
-            Start
+        <div if={state.threads.length === 0}>
+            Open a Thread to explore data <br />
+            <button
+                onclick={openThread}
+                class="border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
+                Open Thread
+            </button>
         </div>
 
-        <anvil-thread
+        <anvil-thread-tabular
             if={props.service.isConnected()}
             each={thread in state.threads}
             controller={thread}
             class={state.tabId !== thread.getId() ? "hidden" : null}>
-        </anvil-thread>
+        </anvil-thread-tabular>
     </div>
 
     <script>
+        import "./anvil-data.css";
         import {AnvilData} from "./AnvilData";
 
         return new AnvilData();
