@@ -60,7 +60,52 @@
         </div>
     </div>
 
-    <div>
+    <div
+        class={props.controller.getThread() ? "hidden" : null}>
+
+        <div>
+            <div class="px-1 inline-block border rounded-t-lg bg-gray-200 border-gray-400 border-b-0">
+                Edit Thread Fetch Params</div>
+            <div>
+                <textarea id="paramsjson"
+                    onkeydown={ (e) => update({hasParamsChanged: true})}
+                    class="min-h-56 w-full border border-gray-400"></textarea>
+            </div>
+
+            <div>
+                <button
+                    onclick={parseParams}
+                    class="px-4 border shadow cursor-pointer rounded bg-gray-300 hover:bg-gray-400">
+                    Parse</button>
+
+                <button
+                    title="Save fetch parameters changes"
+                    onclick={saveParams}
+                    disabled={!state.hasParamsChanged}
+                    class="px-4 border shadow cursor-pointer rounded bg-gray-300 hover:bg-gray-400 disabled:bg-gray-100">
+                    Save</button>
+
+                <button
+                    onclick={resetParams}
+                    class="px-4 border shadow cursor-pointer rounded bg-gray-300 hover:bg-gray-400">
+                    Reset</button>
+            </div>
+
+            <div>
+                <span if={state.parseParams.success}
+                    class="text-green-800">
+                    {state.parseParams.success}</span>
+
+                <span if={state.parseParams.error}
+                    class="text-red-800">
+                    {state.parseParams.error}</span>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class={!props.controller.getThread() ? "hidden" : null}>
+
         <div class="flex flex-row-reverse">
             <div class="inline relative group">
                 <span class="font-bold">Columns</span>

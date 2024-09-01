@@ -6,10 +6,11 @@ import {
 
 import {
     AnvilThreadController,
-} from "../../../lib/AnvilThreadController";
+} from "../../lib/AnvilThreadController";
 
 import {
     DataInterface,
+    ThreadFetchParams,
 } from "openodin";
 
 type Row = {
@@ -44,6 +45,13 @@ export interface AnvilThreadTabularState {
         display: string,
         isChecked: boolean,
     }>;
+
+    hasParamsChanged: boolean;
+
+    parseParams: {
+        success?: string,
+        error?: string,
+    };
 }
 
 export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilThreadTabularState> {
@@ -62,6 +70,7 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
         state.rowCache = {}; // {[id1: string]: Row}
         state.nodes = [];
         state.autoUpdate = true;
+        state.parseParams = {};
 
         props.controller.onChange( () => {
             if (this.state.autoUpdate) {
@@ -74,11 +83,18 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
         });
     }
 
+    public onMounted(props: AnvilThreadTabularProps, state: AnvilThreadTabularState) {
+        const json2 = props.controller.getFetchParamsJSON();
+        (this.$("#paramsjson") as HTMLInputElement).value = json2;
+    }
+
     public run = () => {
         const ret = this.props.controller.start();
 
         if (ret[0]) {
             this.update({error: ""});
+
+            console.log("FetchRequest", ret[2]);
         }
         else {
             this.update({error: ret[1]});
@@ -250,5 +266,54 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
         Object.values(this.state.rowCache).forEach( row => row.isChecked = isChecked );
 
         this.update();
+    }
+
+    public parseParams = (): ThreadFetchParams | undefined => {
+        const template = (this.$("#paramsjson") as HTMLInputElement).value;
+
+        let res;
+        try {
+            res = this.props.controller.parseFetchParams(template);
+        }
+        catch(e) {
+            this.update({parseParams: {error: (e as Error).message, success: ""}});
+
+            return undefined;
+        }
+
+        const [threadParams, error] = res;
+
+        if (!threadParams) {
+            this.update({parseParams: {error, success: ""}});
+            return undefined;
+        }
+
+        this.update({parseParams: {error: "", success: "Parse OK"}});
+
+        return threadParams;
+    }
+
+    public resetParams = () => {
+        this.props.controller.resetParams();
+
+        const json = this.props.controller.getFetchParamsJSON();
+
+        (this.$("#paramsjson") as HTMLInputElement).value = json;
+
+        this.update({parseParams: {error: "", success: "Reset to original"}, hasParamsChanged: false});
+    }
+
+    public saveParams = () => {
+        const template = this.parseParams();
+
+        if (template) {
+            // We save the raw JSON object, not the parsed object.
+            //
+            const json = (this.$("#paramsjson") as HTMLInputElement).value;
+            const obj = JSON.parse(json);
+            this.props.controller.saveParams(obj);
+
+            this.update({parseParams: {error: "", success: "Saved"}, hasParamsChanged: false});
+        }
     }
 }
