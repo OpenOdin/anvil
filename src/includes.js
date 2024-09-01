@@ -1,5 +1,6 @@
-import "setimmediate";
-import * as riot from "riot";
+import {
+    riot,
+} from "./globals";
 
 import Raw from "./helpers/raw.riot";
 riot.register("raw", Raw);
@@ -22,22 +23,17 @@ riot.register("anvil-edit", AnvilEdit);
 import AnvilData from "./components/anvil-data/anvil-data.riot";
 riot.register("anvil-data", AnvilData);
 
+import AnvilOpenthreadModal from "./components/anvil-data/anvil-openthread-modal/anvil-openthread-modal.riot";
+riot.register("anvil-openthread-modal", AnvilOpenthreadModal);
+console.log("register modal", AnvilOpenthreadModal);
+
 import AnvilTab from "./components/anvil-tab/anvil-tab.riot";
 riot.register("anvil-tab", AnvilTab);
 
-import AnvilThread from "./components/anvil-thread/anvil-thread.riot";
-riot.register("anvil-thread", AnvilThread);
-
-import AnvilThreadConfigure from "./components/anvil-thread/anvil-thread-configure/anvil-thread-configure.riot";
-riot.register("anvil-thread-configure", AnvilThreadConfigure);
-
-import AnvilThreadTabular from "./components/anvil-thread/anvil-thread-tabular/anvil-thread-tabular.riot";
+import AnvilThreadTabular from "./components/anvil-thread-tabular/anvil-thread-tabular.riot";
 riot.register("anvil-thread-tabular", AnvilThreadTabular);
 
 import "./index.css";
-
-import { minidenticon } from 'minidenticons'
-minidenticon();  // Need to call minidenticon to activate it.
 
 export {
     riot,
