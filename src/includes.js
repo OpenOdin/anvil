@@ -20,10 +20,10 @@ riot.register("anvil-projects", AnvilProjects);
 import AnvilEdit from "./components/anvil-edit/anvil-edit.riot";
 riot.register("anvil-edit", AnvilEdit);
 
-import AnvilData from "./components/anvil-data/anvil-data.riot";
-riot.register("anvil-data", AnvilData);
+import AnvilThreads from "./components/anvil-threads/anvil-threads.riot";
+riot.register("anvil-threads", AnvilThreads);
 
-import AnvilOpenthreadModal from "./components/anvil-data/anvil-openthread-modal/anvil-openthread-modal.riot";
+import AnvilOpenthreadModal from "./components/anvil-threads/anvil-openthread-modal/anvil-openthread-modal.riot";
 riot.register("anvil-openthread-modal", AnvilOpenthreadModal);
 console.log("register modal", AnvilOpenthreadModal);
 

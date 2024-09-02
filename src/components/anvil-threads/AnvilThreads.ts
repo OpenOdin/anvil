@@ -28,20 +28,20 @@ import {
     SharedEditState,
 } from "../anvil/Anvil";
 
-export interface AnvilDataProps {
+export interface AnvilThreadsProps {
     service: Service;
 }
 
-export interface AnvilDataState {
+export interface AnvilThreadsState {
     tabId: number;
     threads: AnvilThreadController[];
 }
 
-export class AnvilData extends RiotBase<AnvilDataProps, AnvilDataState> {
+export class AnvilThreads extends RiotBase<AnvilThreadsProps, AnvilThreadsState> {
     protected threadId: number = 1;
     //protected editState: SharedEditState = {};
 
-    public onBeforeMount(props: AnvilDataProps, state: AnvilDataState) {
+    public onBeforeMount(props: AnvilThreadsProps, state: AnvilThreadsState) {
         state.threads = [];
         state.tabId = 0;
 

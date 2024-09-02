@@ -65,9 +65,9 @@
                 <anvil-edit
                     class="{!router.active.edit ? "hidden": ""}"></anvil-edit>
 
-                <anvil-data if={state.service}
+                <anvil-threads if={state.service}
                     service={state.service}
-                    class="{!router.active.data ? "hidden": ""}"></anvil-data>
+                    class="{!router.active.data ? "hidden": ""}"></anvil-threads>
 
                 <div if={router.active.welcome}>
                     <h1>Welcome to OpenOdin Anvil</h1>
