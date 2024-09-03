@@ -1,6 +1,6 @@
 import {
     Service,
-    DataInterface,
+    //DataInterface,
     ThreadTemplate,
     ThreadFetchParams,
     CRDTViewItem,
@@ -49,21 +49,21 @@ export class AnvilThreadController {
         }
     }
 
-    public getTemplateJSON(): string {
-        return JSON.stringify(StripObject(this.threadTemplate), null, 4);
-    }
+    //public getTemplateJSON(): string {
+        //return JSON.stringify(StripObject(this.threadTemplate), null, 4);
+    //}
 
     public getFetchParamsJSON(): string {
         return JSON.stringify(StripObject(this.threadFetchParams), null, 4);
     }
 
-    public resetTemplate() {
-        this.threadTemplate = DeepCopy(this.originalThreadTemplate);
-    }
+    //public resetTemplate() {
+        //this.threadTemplate = DeepCopy(this.originalThreadTemplate);
+    //}
 
-    public saveTemplate(threadTemplate: Record<string, any>) {
-        this.threadTemplate = threadTemplate;
-    }
+    //public saveTemplate(threadTemplate: Record<string, any>) {
+        //this.threadTemplate = threadTemplate;
+    //}
 
     public saveParams(threadFetchParams: Record<string, any>) {
         this.threadFetchParams = threadFetchParams;
@@ -72,7 +72,6 @@ export class AnvilThreadController {
     public resetParams() {
         this.threadFetchParams = DeepCopy(this.originalThreadFetchParams);
     }
-
 
     //public hasChanged(obj: Record<string, any>) {
         //return !DeepEquals(this.threadTemplate, obj);
@@ -84,25 +83,25 @@ export class AnvilThreadController {
      * @returns [threadTemplate?: ThreadTemplate, error?: string, message?: string]
      *  threadTemplate is set on success, error set on error.
      */
-    public parseTemplate(template: string): [ThreadTemplate?, string?] {
-        let obj;
+    //public parseTemplate(template: string): [ThreadTemplate?, string?] {
+        //let obj;
 
-        try {
-            obj = JSON.parse(template);
-        }
-        catch(e) {
-            return [undefined, `Could not parse as JSON: ${(e as Error).message}`];
-        }
+        //try {
+            //obj = JSON.parse(template);
+        //}
+        //catch(e) {
+            //return [undefined, `Could not parse as JSON: ${(e as Error).message}`];
+        //}
 
-        try {
-            const threadTemplate = ParseUtil.ParseThread(obj);
+        //try {
+            //const threadTemplate = ParseUtil.ParseThread(obj);
 
-            return [threadTemplate];
-        }
-        catch(e) {
-            return [undefined, `Could not parse ThreadTemplate: ${(e as Error).message}`];
-        }
-    }
+            //return [threadTemplate];
+        //}
+        //catch(e) {
+            //return [undefined, `Could not parse ThreadTemplate: ${(e as Error).message}`];
+        //}
+    //}
 
     /**
      * Parse given string and return params or error.
@@ -276,25 +275,25 @@ export class AnvilThreadController {
     /**
      * @throws on parse error or thread not running
      */
-    public async post(name: string, params: any): Promise<DataInterface> {
-        if (!this.thread) {
-            throw new Error("Thread not running");
-        }
+    //public async post(name: string, params: any): Promise<DataInterface> {
+        //if (!this.thread) {
+            //throw new Error("Thread not running");
+        //}
 
-        ParseUtil.ParseThreadDataParams(params);
+        //ParseUtil.ParseThreadDataParams(params);
 
-        const node = await this.thread.post(name, params);
+        //const node = await this.thread.post(name, params);
 
-        return node;
-    }
+        //return node;
+    //}
 
-    public toHex(s: string): string {
-        return Buffer.from(s).toString("hex");
-    }
+    //public toHex(s: string): string {
+        //return Buffer.from(s).toString("hex");
+    //}
 
-    public fromHex(hex: string): string {
-        return Buffer.from(hex, "hex").toString();
-    }
+    //public fromHex(hex: string): string {
+        //return Buffer.from(hex, "hex").toString();
+    //}
 
     public isAutoSync(): boolean {
         return this.autoSync;
