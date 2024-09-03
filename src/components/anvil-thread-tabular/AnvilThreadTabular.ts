@@ -5,8 +5,9 @@ import {
 } from "riotjs-simple-typescript";
 
 import {
-    AnvilThreadController,
-} from "../../lib/AnvilThreadController";
+    ThreadWrapper,
+} from "../../lib/ThreadWrapper";
+
 
 import {
     DataInterface,
@@ -27,7 +28,7 @@ type Row = {
 };
 
 export interface AnvilThreadTabularProps {
-    controller: AnvilThreadController,
+    controller: ThreadWrapper,
 }
 
 export interface AnvilThreadTabularState {

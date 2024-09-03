@@ -11,7 +11,7 @@ import {
     FetchRequest,
 } from "openodin";
 
-export class AnvilThreadController {
+export class ThreadWrapper {
     protected thread?: Thread;
 
     protected originalThreadTemplate: Record<string, any>;

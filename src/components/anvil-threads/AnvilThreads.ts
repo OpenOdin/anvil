@@ -9,8 +9,8 @@ import {
 } from "openodin";
 
 import {
-    AnvilThreadController,
-} from "../../lib/AnvilThreadController";
+    ThreadWrapper,
+} from "../../lib/ThreadWrapper";
 
 import {
     modal,
@@ -34,7 +34,7 @@ export interface AnvilThreadsProps {
 
 export interface AnvilThreadsState {
     tabId: number;
-    threads: AnvilThreadController[];
+    threads: ThreadWrapper[];
 }
 
 export class AnvilThreads extends RiotBase<AnvilThreadsProps, AnvilThreadsState> {
@@ -77,7 +77,7 @@ export class AnvilThreads extends RiotBase<AnvilThreadsProps, AnvilThreadsState>
 
     protected initThread(name: string, threadTemplate: Record<string, any>) {
         this.state.threads.push(
-            new AnvilThreadController(this.props.service, this.threadId, `${name}#${this.threadId}`, threadTemplate),
+            new ThreadWrapper(this.props.service, this.threadId, `${name}#${this.threadId}`, threadTemplate),
         );
 
         this.state.tabId = this.threadId;
