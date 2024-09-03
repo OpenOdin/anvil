@@ -14,6 +14,7 @@ All components are located in `./src/components`. The directory structure is as:
     |- Anvil.ts (the components controller extending RiotBase from riotjs-simple-typescript)
     |- Anvil.js (transpiled from Anvil.ts, do not touch)
     |- anvil.css (CSS specific for the anvil tag and must be imported from the .riot file)
+    |   Note that any `:host {}` styling must still be done in the `.riot` file.
     |- demo.js (entry point for when building in demo mode using the build-demo.sh script
     |- test/ (TypeScript mocha test files here).
     |- README.md (markdown document explaining the specific component)
