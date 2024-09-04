@@ -1,12 +1,12 @@
 <anvil>
     <template if={!editState.appConf}>
-        <anvil-404 if={router.active["404"]}></anvil-404>
+        <page-404 if={router.active["404"]}></page-404>
 
         <anvil-projects></anvil-projects>
     </template>
 
     <template if={editState.appConf}>
-        <anvil-404 if={router.active["404"]}></anvil-404>
+        <page-404 if={router.active["404"]}></page-404>
 
         <anvil-main
             class="{router.active["404"] ? "hidden": ""}"

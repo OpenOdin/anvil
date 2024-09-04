@@ -5,8 +5,8 @@ import {
 import Raw from "./helpers/raw.riot";
 riot.register("raw", Raw);
 
-import Anvil404 from "./components/anvil-404/anvil-404.riot";
-riot.register("anvil-404", Anvil404);
+import Page404 from "./components/page-404";
+riot.register("page-404", Page404);
 
 import AnvilWaiting from "./components/anvil-waiting/anvil-waiting.riot";
 riot.register("anvil-waiting", AnvilWaiting);
