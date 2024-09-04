@@ -230,6 +230,10 @@ export class ThreadWrapper {
         }
     }
 
+    public getService(): Service {
+        return this.service;
+    }
+
     protected hookThread() {
         if (!this.thread) {
             return;
@@ -265,11 +269,19 @@ export class ThreadWrapper {
     // Return list of post actions for this thread.
     //
     public getPostTemplateList(): string[] {
-        return Object.keys(this.threadTemplate?.post ?? {});
+        return Object.keys(this.threadTemplate.post ?? {});
+    }
+
+    public getPostTemplate(name: string): Record<string, any> {
+        return this.threadTemplate.post?.[name] ?? {};
     }
 
     public getLicenseTemplateList(): string[] {
-        return Object.keys(this.threadTemplate?.postLicense ?? {});
+        return Object.keys(this.threadTemplate.postLicense ?? {});
+    }
+
+    public getLicenseTemplate(name: string): Record<string, any> {
+        return this.threadTemplate.postLicense?.[name] ?? {};
     }
 
     /**

@@ -28,7 +28,7 @@ type Row = {
 };
 
 export interface AnvilThreadTabularProps {
-    controller: ThreadWrapper,
+    threadWrapper: ThreadWrapper,
 }
 
 export interface AnvilThreadTabularState {
@@ -73,24 +73,24 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
         state.autoUpdate = true;
         state.parseParams = {};
 
-        props.controller.onChange( () => {
+        props.threadWrapper.onChange( () => {
             if (this.state.autoUpdate) {
                 this.refreshNodes();
             }
         });
 
-        props.controller.onUpdate(() => {
+        props.threadWrapper.onUpdate(() => {
             this.update();
         });
     }
 
     public onMounted(props: AnvilThreadTabularProps, state: AnvilThreadTabularState) {
-        const json2 = props.controller.getFetchParamsJSON();
+        const json2 = props.threadWrapper.getFetchParamsJSON();
         (this.$("#paramsjson") as HTMLInputElement).value = json2;
     }
 
     public run = () => {
-        const ret = this.props.controller.start();
+        const ret = this.props.threadWrapper.start();
 
         if (ret[0]) {
             this.update({error: ""});
@@ -103,7 +103,7 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
     }
 
     public close = () => {
-        this.props.controller.close();
+        this.props.threadWrapper.close();
         this.update();
     }
 
@@ -144,7 +144,7 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
     protected fetchNodes() {
         // Cache current view of nodes.
         //
-        this.state.nodes = this.props.controller.getItems().map(item => item.node);
+        this.state.nodes = this.props.threadWrapper.getItems().map(item => item.node);
     }
 
     protected updateRows() {
@@ -274,7 +274,7 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
 
         let res;
         try {
-            res = this.props.controller.parseFetchParams(template);
+            res = this.props.threadWrapper.parseFetchParams(template);
         }
         catch(e) {
             this.update({parseParams: {error: (e as Error).message, success: ""}});
@@ -295,9 +295,9 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
     }
 
     public resetParams = () => {
-        this.props.controller.resetParams();
+        this.props.threadWrapper.resetParams();
 
-        const json = this.props.controller.getFetchParamsJSON();
+        const json = this.props.threadWrapper.getFetchParamsJSON();
 
         (this.$("#paramsjson") as HTMLInputElement).value = json;
 
@@ -312,7 +312,7 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
             //
             const json = (this.$("#paramsjson") as HTMLInputElement).value;
             const obj = JSON.parse(json);
-            this.props.controller.saveParams(obj);
+            this.props.threadWrapper.saveParams(obj);
 
             this.update({parseParams: {error: "", success: "Saved"}, hasParamsChanged: false});
         }

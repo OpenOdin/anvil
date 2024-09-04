@@ -1,12 +1,13 @@
 <anvil-openthread-modal>
-    <div class="flex flex-col gap-1 border-blue-900 bg-blue-300 rounded border-2 shadow h-full w-full block p-2">
-        <h1>Choose Thread to instantiate</h1>
+    <div class="flex flex-col gap-1 border-green-900 bg-green-300 rounded border-2 shadow h-full w-full block p-2">
+        <h1 class="text-center" >Choose Thread to instantiate</h1>
 
         <hr />
 
         <div
             each=={name in props.threads}>
             <a href="#"
+               class="hover:text-green-800"
                onclick={(e) => {pick(name); e.preventDefault()}}>
             {name}
             </a>
@@ -15,13 +16,13 @@
 
         <button
             onclick={close}
-            class="border shadow cursor-pointer rounded-2 hover:bg-odingreen-600">
+            class="border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 align-bottom">
         Close</button>
     </div>
 
     <script>
-        import {AnvilOpenThreadModal} from "./AnvilOpenThreadModal";
         import "./anvil-openthread-modal.css";
+        import {AnvilOpenThreadModal} from "./AnvilOpenThreadModal";
 
         return new AnvilOpenThreadModal();
     </script>

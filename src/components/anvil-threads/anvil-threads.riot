@@ -2,11 +2,11 @@
     <div class="flex flex-row gap-1">
         <anvil-tab
             if={props.service.isConnected()}
-            each={thread in state.threads}
+            each={threadWrapper in state.threadWrappers}
             click-callback={tabClicked}
-            id={thread.getId()}
-            name={thread.getName()}
-            active={state.tabId === thread.getId()}>
+            id={threadWrapper.getId()}
+            name={threadWrapper.getName()}
+            active={state.tabId === threadWrapper.getId()}>
         </anvil-tab>
 
         <anvil-tab
@@ -19,7 +19,7 @@
     </div>
 
     <div class="border-t pt-1 border-sky-800">
-        <div if={state.threads.length === 0}>
+        <div if={state.threadWrappers.length === 0}>
             Open a Thread to explore data <br />
             <button
                 onclick={openThread}
@@ -30,9 +30,9 @@
 
         <anvil-thread-tabular
             if={props.service.isConnected()}
-            each={thread in state.threads}
-            controller={thread}
-            class={state.tabId !== thread.getId() ? "hidden" : null}>
+            each={threadWrapper in state.threadWrappers}
+            thread-wrapper={threadWrapper}
+            class={state.tabId !== threadWrapper.getId() ? "hidden" : null}>
         </anvil-thread-tabular>
     </div>
 

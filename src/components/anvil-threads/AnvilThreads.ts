@@ -34,15 +34,14 @@ export interface AnvilThreadsProps {
 
 export interface AnvilThreadsState {
     tabId: number;
-    threads: ThreadWrapper[];
+    threadWrappers: ThreadWrapper[];
 }
 
 export class AnvilThreads extends RiotBase<AnvilThreadsProps, AnvilThreadsState> {
     protected threadId: number = 1;
-    //protected editState: SharedEditState = {};
 
     public onBeforeMount(props: AnvilThreadsProps, state: AnvilThreadsState) {
-        state.threads = [];
+        state.threadWrappers = [];
         state.tabId = 0;
 
         // TODO hook service onClose kill all threads
@@ -76,7 +75,7 @@ export class AnvilThreads extends RiotBase<AnvilThreadsProps, AnvilThreadsState>
     }
 
     protected initThread(name: string, threadTemplate: Record<string, any>) {
-        this.state.threads.push(
+        this.state.threadWrappers.push(
             new ThreadWrapper(this.props.service, this.threadId, `${name}#${this.threadId}`, threadTemplate),
         );
 

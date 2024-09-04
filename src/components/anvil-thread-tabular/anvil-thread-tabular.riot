@@ -36,12 +36,12 @@
         </div>
 
         <div class="flex flex-row">
-            <button if={!props.controller.getThread()}
+            <button if={!props.threadWrapper.getThread()}
                 onclick={run}
                 class="px-4 border shadow cursor-pointer rounded bg-green-600 hover:bg-green-800">
                 Run Thread</button>
 
-            <button if={props.controller.getThread()}
+            <button if={props.threadWrapper.getThread()}
                 onclick={close}
                 class="px-4 border shadow cursor-pointer rounded bg-red-600 hover:bg-red-800">
                 Close Thread</button>
@@ -49,8 +49,8 @@
             <div class="rounded">
                 <label class="px-4" title="Sync data with peers">
                     Auto sync with peers
-                    <input type="checkbox" checked={props.controller.isAutoSync()}
-                        onchange={ (e) => this.props.controller.setAutoSync(e.target.checked) } />
+                    <input type="checkbox" checked={props.threadWrapper.isAutoSync()}
+                        onchange={ (e) => this.props.threadWrapper.setAutoSync(e.target.checked) } />
                 </label>
             </div>
 
@@ -61,7 +61,7 @@
     </div>
 
     <div
-        class={props.controller.getThread() ? "hidden" : null}>
+        class={props.threadWrapper.getThread() ? "hidden" : null}>
 
         <div>
             <div class="px-1 inline-block border rounded-t-lg bg-gray-200 border-gray-400 border-b-0">
@@ -104,7 +104,7 @@
     </div>
 
     <div
-        class={!props.controller.getThread() ? "hidden" : null}>
+        class={!props.threadWrapper.getThread() ? "hidden" : null}>
 
         <div class="flex flex-row-reverse">
             <div class="inline relative group">
