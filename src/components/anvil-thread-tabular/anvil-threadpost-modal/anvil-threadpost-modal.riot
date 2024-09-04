@@ -1,0 +1,29 @@
+<anvil-threadpost-modal>
+    <div class="flex flex-col gap-1 border-green-900 bg-green-300 rounded border-2 shadow h-full w-full block p-2">
+        <h1 class="text-center">Post New <pre>{props.name}</pre> Node</h1>
+
+        <div>
+            <span>Thread data params:</span> <br />
+            <textarea id="postparams"></textarea>
+        </div>
+
+        <hr />
+
+        <button
+            onclick={next}
+            class="border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 align-bottom">
+        Next</button>
+
+        <button
+            onclick={close}
+            class="border shadow cursor-pointer rounded-2 hover:bg-odingreen-600 align-bottom">
+        Cancel</button>
+    </div>
+
+    <script>
+        import "./anvil-threadpost-modal.css";
+        import {AnvilThreadPostModal} from "./AnvilThreadPostModal";
+
+        return new AnvilThreadPostModal();
+    </script>
+</anvil-threadpost-modal>

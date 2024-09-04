@@ -8,10 +8,18 @@ import {
     ThreadWrapper,
 } from "../../lib/ThreadWrapper";
 
+import {
+    modal,
+} from "../../lib/modal";
+
+import {
+    AnvilThreadPostModalProps,
+} from "./anvil-threadpost-modal/AnvilThreadPostModal";
 
 import {
     DataInterface,
     ThreadFetchParams,
+    ThreadDataParams,
 } from "openodin";
 
 type Row = {
@@ -109,6 +117,39 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
 
     public action = () => {
         // TODO
+    }
+
+    public post(name: string) {
+        const thread = this.props.threadWrapper.getThread();
+
+        assert(thread, "Expected thred to have been started");
+
+        const done = async (threadDataParams: ThreadDataParams) => {
+            console.log("threadDataParams", threadDataParams);
+
+            const node = await thread.post(name, threadDataParams);
+
+            console.log("node created", node);
+
+            if (node.isLicensed() && node.getLicenseMinDistance() === 0) {
+                // TODO spawn modal about license
+                const service = this.props.threadWrapper.getService();
+
+                const targets: Buffer[] = [service.getPublicKey()];
+
+                await thread.postLicense("message", node, { targets });
+            }
+        };
+
+        const threadDataParams = this.props.threadWrapper.getPostTemplate(name);
+
+        const props: AnvilThreadPostModalProps = {
+            name,
+            threadDataParams,
+            done,
+        };
+
+        modal.open("anvil-threadpost-modal", props);
     }
 
     public setAutoUpdate = (checked: boolean) => {
