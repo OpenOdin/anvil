@@ -17,8 +17,8 @@ import {
 } from "../../lib/modal";
 
 import {
-    AnvilOpenThreadModalProps,
-} from "../anvil-openthread-modal/AnvilOpenThreadModal";
+    ModalOpenThreadProps,
+} from "../modal-open-thread/ModalOpenThread";
 
 import {
     stateController,
@@ -64,12 +64,12 @@ export class AnvilThreads extends RiotBase<AnvilThreadsProps, AnvilThreadsState>
                     this.update();
                 };
 
-                const props: AnvilOpenThreadModalProps = {
+                const props: ModalOpenThreadProps = {
                     threads,
                     done,
                 };
 
-                modal.open("anvil-openthread-modal", props);
+                modal.open("modal-open-thread", props);
             }
         });
     }
