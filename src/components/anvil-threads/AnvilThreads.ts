@@ -18,7 +18,7 @@ import {
 
 import {
     AnvilOpenThreadModalProps,
-} from "./anvil-openthread-modal/AnvilOpenThreadModal";
+} from "../anvil-openthread-modal/AnvilOpenThreadModal";
 
 import {
     stateController,

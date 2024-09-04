@@ -23,7 +23,7 @@ riot.register("anvil-edit", AnvilEdit);
 import AnvilThreads from "./components/anvil-threads/anvil-threads.riot";
 riot.register("anvil-threads", AnvilThreads);
 
-import AnvilOpenthreadModal from "./components/anvil-threads/anvil-openthread-modal/anvil-openthread-modal.riot";
+import AnvilOpenthreadModal from "./components/anvil-openthread-modal/anvil-openthread-modal.riot";
 riot.register("anvil-openthread-modal", AnvilOpenthreadModal);
 
 import AnvilTab from "./components/anvil-tab/anvil-tab.riot";
