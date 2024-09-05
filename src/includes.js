@@ -17,8 +17,8 @@ riot.register("anvil-main", AnvilMain);
 import AnvilProjects from "./components/anvil-projects/anvil-projects.riot";
 riot.register("anvil-projects", AnvilProjects);
 
-import AnvilEdit from "./components/anvil-edit/anvil-edit.riot";
-riot.register("anvil-edit", AnvilEdit);
+import ProjectEdit from "./components/project-edit";
+riot.register("project-edit", ProjectEdit);
 
 import AnvilThreads from "./components/anvil-threads/anvil-threads.riot";
 riot.register("anvil-threads", AnvilThreads);

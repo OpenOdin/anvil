@@ -16,17 +16,17 @@ import {
     stateController,
 } from "riotjs-simple-state";
 
-export interface AnvilEditProps {}
+export interface ProjectEditProps {}
 
-export interface AnvilEditState {}
+export interface ProjectEditState {}
 
-export class AnvilEdit extends RiotBase<AnvilEditProps, AnvilEditState> {
+export class ProjectEdit extends RiotBase<ProjectEditProps, ProjectEditState> {
     protected editState: SharedEditState = {};
     protected router = router;
 
-    public onBeforeMount(props: AnvilEditProps, state: AnvilEditState) {}
+    public onBeforeMount(props: ProjectEditProps, state: ProjectEditState) {}
 
-    public onMounted(props: AnvilEditProps, state: AnvilEditState) {
+    public onMounted(props: ProjectEditProps, state: ProjectEditState) {
         stateController.load("editState").then( (editState: SharedEditState) => {
             this.editState = editState;
 
@@ -46,7 +46,7 @@ export class AnvilEdit extends RiotBase<AnvilEditProps, AnvilEditState> {
         }
     }
 
-    public onBeforeUpdate(props: AnvilEditProps, state: AnvilEditState) {}
+    public onBeforeUpdate(props: ProjectEditProps, state: ProjectEditState) {}
 
     public onchange = () => {
         assert(this.editState, "Expected editState to be loaded");

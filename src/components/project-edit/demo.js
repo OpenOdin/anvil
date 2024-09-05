@@ -1,6 +1,6 @@
 import {
     riot,
-} from "../../includes";
+} from "../../globals";
 
 import {
     stateController,
@@ -8,8 +8,8 @@ import {
 
 stateController.create("editState", {appConf: {}, isSaved:true});
 
-import AnvilEdit from "./anvil-edit.riot"
+import ProjectEdit from "./project-edit.riot"
 
-const elm = document.createElement("anvil-edit");
+const elm = document.createElement("project-edit");
 document.querySelector("body").append(elm)
-riot.component(AnvilEdit)(elm, {});
+riot.component(ProjectEdit)(elm, {});
