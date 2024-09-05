@@ -8,10 +8,10 @@
     <template if={editState.appConf}>
         <page-404 if={router.active["404"]}></page-404>
 
-        <anvil-main
+        <project-window
             class="{router.active["404"] ? "hidden": ""}"
             service={state.service}
-            open-odin={state.openOdin}></anvil-main>
+            open-odin={state.openOdin}></project-window>
     </template>
 
     <script>

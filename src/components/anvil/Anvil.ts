@@ -1,11 +1,11 @@
 /**
  * This is the entry point for the application.
- * The application has three overarching states as defined below.
  *
- * This entry component is responsible for three things:
- * 1. Redirect to the auth flow (AnvilAuth) if not authed already.
- * 2. Load the main component (AnvilMain) if authed.
- * 3. Load the 404 component if the URL doesn't match any registered route.
+ * This entry component is responsible for:
+ * 1. Show the open project component if no project is loaded.
+ * 2. Show the main component (ProjectWindow) if project is loaded.
+ * 3. Show the 404 component if the URL doesn't match any registered route.
+ * 4. Create and manage the OpenOdin and Service instances.
  */
 import assert from "assert";
 

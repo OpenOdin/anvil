@@ -1,0 +1,15 @@
+project-window {}
+
+project-window .h-footer {
+    height: calc(100vh - 54px);
+}
+
+project-window .sidebar {
+}
+
+project-window .content {
+}
+
+project-window .footer {
+    height: 54px;
+}

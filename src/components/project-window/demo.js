@@ -1,5 +1,5 @@
 /**
- * To demo AnvilMain we need to create and init a Service instance.
+ * To demo ProjectWindow we need to create and init a Service instance.
  */
 import {
     riot,
@@ -20,7 +20,7 @@ import {
     ParseUtil,
 } from "openodin";
 
-import AnvilMain from "./anvil-main.riot"
+import ProjectWindow from "./project-window.riot"
 
 const appConfRaw = require("./demo-resources/appConf.json");
 const appConf = ParseUtil.ParseApplicationConf(appConfRaw);
@@ -41,7 +41,7 @@ async function main() {
 
     router.onUpdate( () => setImmediate( () => entryComponent?.update() ) );
 
-    const elm = document.createElement("anvil-main");
+    const elm = document.createElement("project-window");
 
     document.querySelector("body").append(elm)
 
@@ -63,7 +63,7 @@ async function main() {
 
     stateController.create("editState", {appConf: appConfRaw, isSaved:true});
 
-    entryComponent = riot.component(AnvilMain)(elm, props);
+    entryComponent = riot.component(ProjectWindow)(elm, props);
 }
 
 main();

@@ -19,7 +19,7 @@ import {
     OpenOdin,
 } from "openodin";
 
-export interface AnvilMainProps {
+export interface ProjectWindowProps {
     // set when authed
     //
     service?: Service;
@@ -27,7 +27,7 @@ export interface AnvilMainProps {
     openOdin: OpenOdin;
 }
 
-export interface AnvilMainState {
+export interface ProjectWindowState {
     service?: Service;
     serviceWrapper?: ServiceWrapper;
 }
@@ -38,7 +38,7 @@ function Intersection(a: string[], b: string[]): string[] {
     return b.filter( key => o[key] );
 }
 
-export class AnvilMain extends RiotBase<AnvilMainProps, AnvilMainState> {
+export class ProjectWindow extends RiotBase<ProjectWindowProps, ProjectWindowState> {
     // Place router here so the .riot template can access it.
     //
     protected router = router;
@@ -51,7 +51,7 @@ export class AnvilMain extends RiotBase<AnvilMainProps, AnvilMainState> {
         this.props.openOdin.close();
     }
 
-    public onBeforeUpdate(props: AnvilMainProps, state: AnvilMainState) {
+    public onBeforeUpdate(props: ProjectWindowProps, state: ProjectWindowState) {
 
         // If the Service object has been set/reset
         //
@@ -69,7 +69,7 @@ export class AnvilMain extends RiotBase<AnvilMainProps, AnvilMainState> {
         }
     }
 
-    public onBeforeMount(props: AnvilMainProps, state: AnvilMainState) {
+    public onBeforeMount(props: ProjectWindowProps, state: ProjectWindowState) {
 
         // Register a preRoute function so we can check auth status
         // and redirect the flow accordingly.
@@ -123,7 +123,7 @@ export class AnvilMain extends RiotBase<AnvilMainProps, AnvilMainState> {
         router.register(this.routes);
     }
 
-    public onMounted(props: AnvilMainProps, state: AnvilMainState) {
+    public onMounted(props: ProjectWindowProps, state: ProjectWindowState) {
         // We do this to reset any existing URL.
         //
         router.pushRoute("edit");
@@ -154,7 +154,7 @@ export class AnvilMain extends RiotBase<AnvilMainProps, AnvilMainState> {
         return this.state.service?.getPublicKey().toString("hex");
     }
 
-    public onUnmounted(props: AnvilMainProps, state: AnvilMainState) {
+    public onUnmounted(props: ProjectWindowProps, state: ProjectWindowState) {
         router.reset();
     }
 }

@@ -11,8 +11,8 @@ riot.register("page-404", Page404);
 import AnvilWaiting from "./components/anvil-waiting/anvil-waiting.riot";
 riot.register("anvil-waiting", AnvilWaiting);
 
-import AnvilMain from "./components/anvil-main/anvil-main.riot";
-riot.register("anvil-main", AnvilMain);
+import ProjectWindow from "./components/project-window";
+riot.register("project-window", ProjectWindow);
 
 import AnvilProjects from "./components/anvil-projects/anvil-projects.riot";
 riot.register("anvil-projects", AnvilProjects);
