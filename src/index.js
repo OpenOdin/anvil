@@ -14,8 +14,8 @@ let entryComponent;
 
 router.onUpdate( () => setImmediate( () => entryComponent?.update() ) );
 
-import Anvil from "./components/anvil/anvil.riot"
+import AnvilApp from "./components/anvil-app"
 
 const elm = document.createElement("anvil");
 document.querySelector("body").append(elm)
-entryComponent = riot.component(Anvil)(elm);
+entryComponent = riot.component(AnvilApp)(elm);

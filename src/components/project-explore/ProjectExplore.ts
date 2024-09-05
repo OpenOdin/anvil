@@ -26,7 +26,7 @@ import {
 
 import {
     SharedEditState,
-} from "../anvil/Anvil";
+} from "../anvil-app/AnvilApp";
 
 export interface ProjectExploreProps {
     service: Service;

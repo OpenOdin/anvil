@@ -1,4 +1,4 @@
-<anvil>
+<anvil-app>
     <template if={!editState.appConf}>
         <page-404 if={router.active["404"]}></page-404>
 
@@ -15,9 +15,9 @@
     </template>
 
     <script>
-        import "./anvil.css";
-        import {Anvil} from "./Anvil";
+        import "./anvil-app.css";
+        import {AnvilApp} from "./AnvilApp";
 
-        return new Anvil();
+        return new AnvilApp();
     </script>
-</anvil>
+</anvil-app>

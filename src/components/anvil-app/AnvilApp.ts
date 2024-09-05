@@ -31,16 +31,16 @@ export type SharedEditState = {
     isSaved?: boolean,
 };
 
-export interface AnvilProps {}
+export interface AnvilAppProps {}
 
-export interface AnvilState {
+export interface AnvilAppState {
     /** Upon successful authentication Service is created. */
     service?: Service,
 
     openOdin: OpenOdin,
 }
 
-export class Anvil extends RiotBase<AnvilProps, AnvilState> {
+export class AnvilApp extends RiotBase<AnvilAppProps, AnvilAppState> {
     // Place router here so the .riot template can access it.
     //
     protected router = router;
@@ -108,13 +108,13 @@ export class Anvil extends RiotBase<AnvilProps, AnvilState> {
         openOdin.auth(appConf);
     }
 
-    public onBeforeMount(props: AnvilProps, state: AnvilState) {
+    public onBeforeMount(props: AnvilAppProps, state: AnvilAppState) {
         stateController.create("editState", this.editState);
 
         this.createOpenOdin();
     }
 
-    public onMounted(props: AnvilProps, state: AnvilState) {
+    public onMounted(props: AnvilAppProps, state: AnvilAppState) {
         stateController.watch("editState", (editState: SharedEditState) => {
             this.editState = editState;
 

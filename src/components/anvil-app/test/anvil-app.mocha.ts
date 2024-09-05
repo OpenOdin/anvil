@@ -11,12 +11,12 @@ import {
     router,
 } from "riotjs-simple-router";
 
-// Here we are specific that we are importing the Anvil.ts file and not implicitly the Anvil.js file.
-// This gives us the error lines in Anvil.ts instead of in Anvil.js on errors in the tests.
+// Here we are specific that we are importing the AnvilApp.ts file and not implicitly the AnvilApp.js file.
+// This gives us the error lines in AnvilApp.ts instead of in AnvilApp.js on errors in the tests.
 //
-import {Anvil} from "../Anvil.ts";  // Note: .ts
+import {AnvilApp} from "../AnvilApp.ts";  // Note: .ts
 
-describe("anvil (application entry point)", function() {
+describe("anvil-app (application entry point)", function() {
     beforeEach(function() {
         // Clear out router configurations.
         //
@@ -35,12 +35,12 @@ describe("anvil (application entry point)", function() {
     it("should redirect to auth when not authed", function() {
         const routerCtrl = new RouterCtrl(router, "https://example.org/#/main/");
 
-        const viewpath = `${__dirname}/../anvil.riot`;
+        const viewpath = `${__dirname}/../anvil-app.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
         const props = {};
 
-        new Wrapped(Anvil, html, props);
+        new Wrapped(AnvilApp, html, props);
 
         assert(router.getLocation() === "https://example.org/#/", "Expected location to be reset to /#/");
 

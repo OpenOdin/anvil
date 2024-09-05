@@ -6,7 +6,7 @@ import {
 
 import {
     SharedEditState,
-} from "../anvil/Anvil";
+} from "../anvil-app/AnvilApp";
 
 import {
     router,
