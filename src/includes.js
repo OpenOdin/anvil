@@ -26,8 +26,8 @@ riot.register("project-explore", ProjectExplore);
 import ModalOpenThread from "./components/modal-open-thread";
 riot.register("modal-open-thread", ModalOpenThread);
 
-import AnvilTab from "./components/anvil-tab/anvil-tab.riot";
-riot.register("anvil-tab", AnvilTab);
+import UtilTab from "./components/util-tab";
+riot.register("util-tab", UtilTab);
 
 import ThreadTable from "./components/thread-table";
 riot.register("thread-table", ThreadTable);

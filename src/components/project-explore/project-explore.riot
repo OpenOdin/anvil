@@ -1,21 +1,21 @@
 <project-explore>
     <div class="flex flex-row gap-1">
-        <anvil-tab
+        <util-tab
             if={props.service.isConnected()}
             each={threadWrapper in state.threadWrappers}
             click-callback={tabClicked}
             id={threadWrapper.getId()}
             name={threadWrapper.getName()}
             active={state.tabId === threadWrapper.getId()}>
-        </anvil-tab>
+        </util-tab>
 
-        <anvil-tab
+        <util-tab
             if={props.service.isConnected()}
             click-callback={openThread}
             id="new-thread"
             name="+"
             active={false}>
-        </anvil-tab>
+        </util-tab>
     </div>
 
     <div class="border-t pt-1 border-sky-800">
