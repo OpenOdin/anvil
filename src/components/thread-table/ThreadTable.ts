@@ -35,11 +35,11 @@ type Row = {
     },
 };
 
-export interface AnvilThreadTabularProps {
+export interface ThreadTableProps {
     threadWrapper: ThreadWrapper,
 }
 
-export interface AnvilThreadTabularState {
+export interface ThreadTableState {
     nodes: DataInterface[];
     length: number;
     pages: number;
@@ -63,8 +63,8 @@ export interface AnvilThreadTabularState {
     };
 }
 
-export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilThreadTabularState> {
-    public onBeforeMount(props: AnvilThreadTabularProps, state: AnvilThreadTabularState) {
+export class ThreadTable extends RiotBase<ThreadTableProps, ThreadTableState> {
+    public onBeforeMount(props: ThreadTableProps, state: ThreadTableState) {
         state.headers = [
             {name: "id1", display: "id1", isChecked: true},
             {name: "id2", display: "id2", isChecked: false},
@@ -92,7 +92,7 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
         });
     }
 
-    public onMounted(props: AnvilThreadTabularProps, state: AnvilThreadTabularState) {
+    public onMounted(props: ThreadTableProps, state: ThreadTableState) {
         const json2 = props.threadWrapper.getFetchParamsJSON();
         (this.$("#paramsjson") as HTMLInputElement).value = json2;
     }
@@ -166,14 +166,14 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
         this.update();
     }
 
-    public onBeforeUpdate(props: AnvilThreadTabularProps, state: AnvilThreadTabularState) {
+    public onBeforeUpdate(props: ThreadTableProps, state: ThreadTableState) {
         //if (state.autoUpdate && props.controller.isClosed()) {
             //this.fetchNodes();
             //this.updateRows();
         //}
     }
 
-    public onUpdated(props: AnvilThreadTabularProps, state: AnvilThreadTabularState) {
+    public onUpdated(props: ThreadTableProps, state: ThreadTableState) {
         // We need to explicitly update the value because browsers remember checkbox values.
         //
         this.$$("input.rowcheckbox").forEach( elm => {

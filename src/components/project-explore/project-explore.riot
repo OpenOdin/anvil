@@ -28,12 +28,12 @@
             </button>
         </div>
 
-        <anvil-thread-tabular
+        <thread-table
             if={props.service.isConnected()}
             each={threadWrapper in state.threadWrappers}
             thread-wrapper={threadWrapper}
             class={state.tabId !== threadWrapper.getId() ? "hidden" : null}>
-        </anvil-thread-tabular>
+        </thread-table>
     </div>
 
     <script>

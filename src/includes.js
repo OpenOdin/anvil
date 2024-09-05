@@ -29,8 +29,8 @@ riot.register("modal-open-thread", ModalOpenThread);
 import AnvilTab from "./components/anvil-tab/anvil-tab.riot";
 riot.register("anvil-tab", AnvilTab);
 
-import AnvilThreadTabular from "./components/anvil-thread-tabular/anvil-thread-tabular.riot";
-riot.register("anvil-thread-tabular", AnvilThreadTabular);
+import ThreadTable from "./components/thread-table";
+riot.register("thread-table", ThreadTable);
 
 import ModalThreadPost from "./components/modal-thread-post";
 riot.register("modal-thread-post", ModalThreadPost);
