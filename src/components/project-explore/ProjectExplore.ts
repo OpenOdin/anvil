@@ -28,19 +28,19 @@ import {
     SharedEditState,
 } from "../anvil/Anvil";
 
-export interface AnvilThreadsProps {
+export interface ProjectExploreProps {
     service: Service;
 }
 
-export interface AnvilThreadsState {
+export interface ProjectExploreState {
     tabId: number;
     threadWrappers: ThreadWrapper[];
 }
 
-export class AnvilThreads extends RiotBase<AnvilThreadsProps, AnvilThreadsState> {
+export class ProjectExplore extends RiotBase<ProjectExploreProps, ProjectExploreState> {
     protected threadId: number = 1;
 
-    public onBeforeMount(props: AnvilThreadsProps, state: AnvilThreadsState) {
+    public onBeforeMount(props: ProjectExploreProps, state: ProjectExploreState) {
         state.threadWrappers = [];
         state.tabId = 0;
 

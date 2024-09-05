@@ -20,8 +20,8 @@ riot.register("anvil-projects", AnvilProjects);
 import ProjectEdit from "./components/project-edit";
 riot.register("project-edit", ProjectEdit);
 
-import AnvilThreads from "./components/anvil-threads/anvil-threads.riot";
-riot.register("anvil-threads", AnvilThreads);
+import ProjectExplore from "./components/project-explore";
+riot.register("project-explore", ProjectExplore);
 
 import ModalOpenThread from "./components/modal-open-thread";
 riot.register("modal-open-thread", ModalOpenThread);
