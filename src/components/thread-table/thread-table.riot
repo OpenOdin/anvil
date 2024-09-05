@@ -172,7 +172,7 @@
                         </td>
                         <td each={header in state.headers}
                             class={header.isChecked === false ? "hidden" : null}>
-                            <raw style="word-break: break-all;"
+                            <util-raw style="word-break: break-all;"
                                 raw={row.columns[header.name].display ?? "<i>undefined</i>"} />
                         </td>
                     </tr>

@@ -2,8 +2,8 @@ import {
     riot,
 } from "./globals";
 
-import Raw from "./helpers/raw.riot";
-riot.register("raw", Raw);
+import UtilRaw from "./components/util-raw";
+riot.register("util-raw", UtilRaw);
 
 import Page404 from "./components/page-404";
 riot.register("page-404", Page404);
