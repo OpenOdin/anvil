@@ -10,11 +10,11 @@ import {
     SharedEditState,
 } from "../anvil/Anvil";
 
-export interface AnvilProjectsProps {}
+export interface ProjectOpenProps {}
 
-export interface AnvilProjectsState {}
+export interface ProjectOpenState {}
 
-export class AnvilProjects extends RiotBase<AnvilProjectsProps, AnvilProjectsState> {
+export class ProjectOpen extends RiotBase<ProjectOpenProps, ProjectOpenState> {
     public load = () => {
         this.loadURL("/app.json");
     }

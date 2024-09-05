@@ -10,9 +10,9 @@ import {
     stateController
 } from "riotjs-simple-state";
 
-import {AnvilProjects} from "../AnvilProjects.ts";  // Note: .ts
+import {ProjectOpen} from "../ProjectOpen.ts";  // Note: .ts
 
-describe("anvil-projects component", function() {
+describe("project-open component", function() {
     beforeEach(function() {
         // Clear out configurations.
         //
@@ -22,12 +22,12 @@ describe("anvil-projects component", function() {
     it("should load state and fetch json", async function() {
         await stateController.create("editState");
 
-        const viewpath = `${__dirname}/../anvil-projects.riot`;
+        const viewpath = `${__dirname}/../project-open.riot`;
         const html = fs.readFileSync(viewpath, "utf-8");
 
         const url = "https://raw.githubusercontent.com/OpenOdin/anvil/main/package.json";
 
-        const wrapped = new Wrapped(AnvilProjects, html, {});
+        const wrapped = new Wrapped(ProjectOpen, html, {});
 
         // @ts-expect-error accessing protected field.
         await wrapped.component.loadURL(url);

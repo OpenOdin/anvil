@@ -14,8 +14,8 @@ riot.register("anvil-waiting", AnvilWaiting);
 import ProjectWindow from "./components/project-window";
 riot.register("project-window", ProjectWindow);
 
-import AnvilProjects from "./components/anvil-projects/anvil-projects.riot";
-riot.register("anvil-projects", AnvilProjects);
+import ProjectOpen from "./components/project-open";
+riot.register("project-open", ProjectOpen);
 
 import ProjectEdit from "./components/project-edit";
 riot.register("project-edit", ProjectEdit);
