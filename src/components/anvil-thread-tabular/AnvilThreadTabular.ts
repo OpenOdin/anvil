@@ -13,8 +13,8 @@ import {
 } from "../../lib/modal";
 
 import {
-    AnvilThreadPostModalProps,
-} from "./anvil-threadpost-modal/AnvilThreadPostModal";
+    ModalThreadPostProps,
+} from "../modal-thread-post/ModalThreadPost";
 
 import {
     DataInterface,
@@ -143,13 +143,13 @@ export class AnvilThreadTabular extends RiotBase<AnvilThreadTabularProps, AnvilT
 
         const threadDataParams = this.props.threadWrapper.getPostTemplate(name);
 
-        const props: AnvilThreadPostModalProps = {
+        const props: ModalThreadPostProps = {
             name,
             threadDataParams,
             done,
         };
 
-        modal.open("anvil-threadpost-modal", props);
+        modal.open("modal-thread-post", props);
     }
 
     public setAutoUpdate = (checked: boolean) => {

@@ -32,8 +32,8 @@ riot.register("anvil-tab", AnvilTab);
 import AnvilThreadTabular from "./components/anvil-thread-tabular/anvil-thread-tabular.riot";
 riot.register("anvil-thread-tabular", AnvilThreadTabular);
 
-import AnvilThreadPostModal from "./components/anvil-thread-tabular/anvil-threadpost-modal/anvil-threadpost-modal.riot";
-riot.register("anvil-threadpost-modal", AnvilThreadPostModal);
+import ModalThreadPost from "./components/modal-thread-post";
+riot.register("modal-thread-post", ModalThreadPost);
 
 import "./index.css";
 

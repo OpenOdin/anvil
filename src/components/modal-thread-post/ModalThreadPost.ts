@@ -6,7 +6,7 @@ import {
     ThreadDataParams,
 } from "openodin";
 
-export interface AnvilThreadPostModalProps {
+export interface ModalThreadPostProps {
     // populated by modal function
     //
     unmount?: () => void;
@@ -18,11 +18,11 @@ export interface AnvilThreadPostModalProps {
     threadDataParams: ThreadDataParams;
 }
 
-export interface AnvilThreadPostModalState {}
+export interface ModalThreadPostState {}
 
-export class AnvilThreadPostModal extends RiotBase<AnvilThreadPostModalProps, AnvilThreadPostModalState> {
+export class ModalThreadPost extends RiotBase<ModalThreadPostProps, ModalThreadPostState> {
 
-    public onMounted(props: AnvilThreadPostModalProps, state: AnvilThreadPostModalState) {
+    public onMounted(props: ModalThreadPostProps, state: ModalThreadPostState) {
         (this.$("#postparams") as HTMLInputElement).value =
             JSON.stringify(props.threadDataParams, null, 4);
     }
