@@ -9,8 +9,8 @@ import {
 } from "../../lib/ThreadWrapper";
 
 import {
-    modal,
-} from "../../lib/modal";
+    Modal,
+} from "riotjs-simple-typescript";
 
 import {
     ModalThreadPostProps,
@@ -149,7 +149,7 @@ export class ThreadTable extends RiotBase<ThreadTableProps, ThreadTableState> {
             done,
         };
 
-        modal.open("modal-thread-post", props);
+        Modal.open("modal-thread-post", props);
     }
 
     public setAutoUpdate = (checked: boolean) => {

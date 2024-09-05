@@ -13,8 +13,8 @@ import {
 } from "../../lib/ThreadWrapper";
 
 import {
-    modal,
-} from "../../lib/modal";
+    Modal,
+} from "riotjs-simple-typescript";
 
 import {
     ModalOpenThreadProps,
@@ -64,12 +64,7 @@ export class ProjectExplore extends RiotBase<ProjectExploreProps, ProjectExplore
                     this.update();
                 };
 
-                const props: ModalOpenThreadProps = {
-                    threads,
-                    done,
-                };
-
-                modal.open("modal-open-thread", props);
+                Modal.open<ModalOpenThreadProps>("modal-open-thread", {threads, done});
             }
         });
     }
