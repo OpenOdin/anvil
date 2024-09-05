@@ -6,9 +6,9 @@ import {
     modal,
 } from "../../lib/modal";
 
-import ModalThreadPost from "./modal-thread-post.riot"
-
 import "../../index.css";
+
+import ModalThreadPost from "./modal-thread-post.riot"
 
 riot.register("modal-thread-post", ModalThreadPost);
 

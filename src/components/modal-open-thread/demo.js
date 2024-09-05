@@ -6,6 +6,8 @@ import {
     modal,
 } from "../../lib/modal";
 
+import "../../index.css";
+
 import ModalOpenThread from "./modal-open-thread.riot"
 
 riot.register("modal-open-thread", ModalOpenThread);

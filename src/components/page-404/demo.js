@@ -2,6 +2,8 @@ import {
     riot,
 } from "../../globals";
 
+import "../../index.css";
+
 import Page404 from "./page-404.riot"
 
 const elm = document.createElement("page-404");
