@@ -8,9 +8,6 @@ riot.register("raw", Raw);
 import Page404 from "./components/page-404";
 riot.register("page-404", Page404);
 
-import AnvilWaiting from "./components/anvil-waiting/anvil-waiting.riot";
-riot.register("anvil-waiting", AnvilWaiting);
-
 import ProjectWindow from "./components/project-window";
 riot.register("project-window", ProjectWindow);
 
