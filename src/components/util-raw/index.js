@@ -1,3 +1,2 @@
-import riotComponent from "./util-raw.riot";
-export default riotComponent;
-
+import riotComponentWrapper from "./util-raw.riot";
+export default riotComponentWrapper;

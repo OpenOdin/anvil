@@ -1,2 +1,2 @@
-import riotComponent from "./page-404.riot";
-export default riotComponent;
+import riotComponentWrapper from "./page-404.riot";
+export default riotComponentWrapper;

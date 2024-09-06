@@ -1,3 +1,2 @@
-import riotComponent from "./thread-table.riot";
-export default riotComponent;
-
+import riotComponentWrapper from "./thread-table.riot";
+export default riotComponentWrapper;

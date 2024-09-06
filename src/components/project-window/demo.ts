@@ -1,9 +1,10 @@
-/**
- * To demo ProjectWindow we need to create and init a Service instance.
- */
+import "../../globals";
+
+import "../../includes";
+
 import {
     riot,
-} from "../../includes";
+} from "riotjs-simple-typescript";
 
 import {
     router,
@@ -20,7 +21,12 @@ import {
     ParseUtil,
 } from "openodin";
 
-import ProjectWindow from "./project-window.riot"
+import {
+    ProjectWindowProps,
+} from "./ProjectWindow";
+
+//@ts-expect-error no typings
+import riotComponentWrapper from "./project-window.riot"
 
 const appConfRaw = require("./demo-resources/appConf.json");
 const appConf = ParseUtil.ParseApplicationConf(appConfRaw);
@@ -37,17 +43,13 @@ async function main() {
 
     await service.init();
 
-    let entryComponent;
-
-    router.onUpdate( () => setImmediate( () => entryComponent?.update() ) );
-
     const elm = document.createElement("project-window");
 
-    document.querySelector("body").append(elm)
+    document.querySelector("body")?.append(elm)
 
     // Change these values to effect the state of the component
     //
-    const openOdin = {
+    const openOdin: any = {
         isAuthed: () => true,
         isPendingAuth: () => false,
         isClosed: () => false,
@@ -56,14 +58,16 @@ async function main() {
         close: () => undefined,
     };
 
-    const props = {
+    const props: ProjectWindowProps = {
         openOdin,
         service,
     };
 
     stateController.create("editState", {appConf: appConfRaw, isSaved:true});
 
-    entryComponent = riot.component(ProjectWindow)(elm, props);
+    const entryComponent = riot.component(riotComponentWrapper)(elm, props);
+
+    router.onUpdate( () => setImmediate( () => entryComponent?.update() ) );
 }
 
 main();

@@ -1,3 +1,2 @@
-import riotComponent from "./project-open.riot";
-export default riotComponent;
-
+import riotComponentWrapper from "./project-open.riot";
+export default riotComponentWrapper;
