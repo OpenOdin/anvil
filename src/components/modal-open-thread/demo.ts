@@ -1,3 +1,5 @@
+import "../../globals";
+
 import {
     riot,
     ModalOptions,

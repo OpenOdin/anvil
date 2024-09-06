@@ -1,4 +1,4 @@
-div[is="modal-thread-post"] {
+modal-thread-post {
     position: absolute;
     display: block;
     top: 50%;

@@ -9,11 +9,7 @@ import {
 } from "../../lib/ThreadWrapper";
 
 import {
-    Modal,
-} from "riotjs-simple-typescript";
-
-import {
-    ModalThreadPostProps,
+    ModalThreadPost,
 } from "../modal-thread-post/ModalThreadPost";
 
 import {
@@ -124,8 +120,12 @@ export class ThreadTable extends RiotBase<ThreadTableProps, ThreadTableState> {
 
         assert(thread, "Expected thred to have been started");
 
-        const done = async (threadDataParams: ThreadDataParams) => {
+        const done = async (threadDataParams: ThreadDataParams | undefined) => {
             console.log("threadDataParams", threadDataParams);
+
+            if (!threadDataParams) {
+                return;
+            }
 
             const node = await thread.post(name, threadDataParams);
 
@@ -133,6 +133,7 @@ export class ThreadTable extends RiotBase<ThreadTableProps, ThreadTableState> {
 
             if (node.isLicensed() && node.getLicenseMinDistance() === 0) {
                 // TODO spawn modal about license
+
                 const service = this.props.threadWrapper.getService();
 
                 const targets: Buffer[] = [service.getPublicKey()];
@@ -143,13 +144,7 @@ export class ThreadTable extends RiotBase<ThreadTableProps, ThreadTableState> {
 
         const threadDataParams = this.props.threadWrapper.getPostTemplate(name);
 
-        const props: ModalThreadPostProps = {
-            name,
-            threadDataParams,
-            done,
-        };
-
-        Modal.open("modal-thread-post", props);
+        ModalThreadPost.open({name, threadDataParams}).then( done );
     }
 
     public setAutoUpdate = (checked: boolean) => {

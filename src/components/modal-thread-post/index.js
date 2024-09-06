@@ -1,2 +1,2 @@
-import riotComponent from "./modal-thread-post.riot";
-export default riotComponent;
+import riotComponentWrapper from "./modal-thread-post.riot";
+export default riotComponentWrapper;

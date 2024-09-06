@@ -1,18 +1,17 @@
 import {
-    RiotBase,
+    RiotModal,
+    ModalOptions,
+    riot,
 } from "riotjs-simple-typescript";
 
 import {
     ThreadDataParams,
 } from "openodin";
 
+//@ts-expect-error no typings
+import riotComponentWrapper from "./modal-thread-post.riot";
+
 export interface ModalThreadPostProps {
-    // populated by modal function
-    //
-    unmount?: () => void;
-
-    done: (threadDataParams: ThreadDataParams) => void;
-
     name: string;
 
     threadDataParams: ThreadDataParams;
@@ -20,7 +19,15 @@ export interface ModalThreadPostProps {
 
 export interface ModalThreadPostState {}
 
-export class ModalThreadPost extends RiotBase<ModalThreadPostProps, ModalThreadPostState> {
+export type ModalThreadPostResult = ThreadDataParams | undefined;
+
+export class ModalThreadPost extends RiotModal<ModalThreadPostProps, ModalThreadPostState, ModalThreadPostResult> {
+    public static open(props: ModalThreadPostProps, options?: ModalOptions) {
+        return ModalThreadPost.openModal<ModalThreadPostProps, ModalThreadPostResult>(props, options,
+            riotComponentWrapper);
+    }
+
+    public onBeforeMount(props: ModalThreadPostProps, state: ModalThreadPostState) {}
 
     public onMounted(props: ModalThreadPostProps, state: ModalThreadPostState) {
         (this.$("#postparams") as HTMLInputElement).value =
@@ -33,16 +40,10 @@ export class ModalThreadPost extends RiotBase<ModalThreadPostProps, ModalThreadP
 
             const params: ThreadDataParams = JSON.parse(json);
 
-            this.props.unmount?.();
-
-            this.props.done(params);
+            this.close(params);
         }
         catch(e) {
             console.error(e);
         }
-    };
-
-    public close = () => {
-        this.props.unmount?.();
     }
 }
