@@ -15,7 +15,7 @@ All components are located in `./src/components`. The directory structure is as:
     |- Anvil.js (transpiled from Anvil.ts, do not touch)
     |- anvil.css (CSS specific for the anvil tag and must be imported from the .riot file)
     |   Note that any `:host {}` styling must still be done in the `.riot` file.
-    |- demo.js (entry point for when building in demo mode using the build-demo.sh script
+    |- demo.ts (entry point for when building in demo mode using the build-demo.sh script
     |- test/ (TypeScript mocha test files here).
     |- README.md (markdown document explaining the specific component)
 ```
@@ -50,9 +50,9 @@ export class Anvil extends RiotBase<AnvilProps, AnvilState> {
 }
 ```
 
-We register all components in the file `./src/includes.js`. This file is shared by the app root `./src/index.js` and all `demo.js` files to keep a single place for importing everything needed.
+We register all global components in the file `./src/includes.ts`.
 
-The `demo.js` files do not have to rely on `./src/includes.js`, but it can be convenient.
+The `demo.ts` files do not have to rely on `./src/includes.ts`, but can use them if they want too.  
 
 ## Building
 
@@ -64,13 +64,13 @@ Whenever the `.riot` or `.css` are changed or when the `.js` files have been rer
 
 ### Build components in demo mode
 
-When developing a specific component you can build the app using that components `demo.js` file as entry point:  
+When developing a specific component you can build the app using that components `demo.ts` file as entry point:  
 
 ```sh
 ./build-demo.sh anvil-404
 ```
 
-The example above will build the app using `./src/components/anvil-404/demo.js` as entry point. The `demo.js` needs to setup required prerequisites and mount the component.
+The example above will build the app using `./src/components/anvil-404/demo.ts` as entry point. The `demo.ts` needs to setup required prerequisites and mount the component.
 
 ## Build typescript and riotjs app in dev mode
 
