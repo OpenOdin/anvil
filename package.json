@@ -62,6 +62,6 @@
         "openodin": "=0.9.1",
         "riotjs-simple-router": "0.6.0",
         "riotjs-simple-state": "0.4.2",
-        "riotjs-simple-typescript": "0.4.0"
+        "riotjs-simple-typescript": "0.5.0"
     }
 }
