@@ -1,4 +1,4 @@
-div[is="modal-open-thread"] {
+modal-open-thread {
     position: absolute;
     display: block;
     top: 50%;

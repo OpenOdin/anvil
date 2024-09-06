@@ -13,11 +13,7 @@ import {
 } from "../../lib/ThreadWrapper";
 
 import {
-    Modal,
-} from "riotjs-simple-typescript";
-
-import {
-    ModalOpenThreadProps,
+    ModalOpenThread,
 } from "../modal-open-thread/ModalOpenThread";
 
 import {
@@ -52,7 +48,7 @@ export class ProjectExplore extends RiotBase<ProjectExploreProps, ProjectExplore
             if (editState.appConf?.threads) {
                 const threads = Object.keys(editState.appConf.threads);
 
-                const done = (name?: string) => {
+                ModalOpenThread.open({threads}).then( (name?: string) => {
                     if (name) {
                         const threadTemplate = editState.appConf?.threads[name];
 
@@ -62,9 +58,7 @@ export class ProjectExplore extends RiotBase<ProjectExploreProps, ProjectExplore
                     }
 
                     this.update();
-                };
-
-                Modal.open<ModalOpenThreadProps>("modal-open-thread", {threads, done});
+                });
             }
         });
     }

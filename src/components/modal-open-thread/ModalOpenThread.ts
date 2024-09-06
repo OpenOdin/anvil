@@ -1,38 +1,27 @@
 import {
-    RiotBase,
+    RiotModal,
+    ModalOptions,
+    riot,
 } from "riotjs-simple-typescript";
 
+//@ts-expect-error no typings
+import riotComponentWrapper from "./modal-open-thread.riot";
+
 export interface ModalOpenThreadProps {
-    // populated by modal function
-    //
-    unmount?: () => void;
-
-    done: (name?: string) => void;
-
     threads: string[];
 }
 
 export interface ModalOpenThreadState {}
 
-export class ModalOpenThread extends RiotBase<ModalOpenThreadProps, ModalOpenThreadState> {
+export type ModalOpenThreadResult = string | undefined;
 
-    public onBeforeMount(props: ModalOpenThreadProps, state: ModalOpenThreadState) {
-    }
-
-    public onMounted(props: ModalOpenThreadProps, state: ModalOpenThreadState) {
+export class ModalOpenThread extends RiotModal<ModalOpenThreadProps, ModalOpenThreadState, ModalOpenThreadResult> {
+    public static open(props: ModalOpenThreadProps, options?: ModalOptions) {
+        return ModalOpenThread.openModal<ModalOpenThreadProps, ModalOpenThreadResult>(props, options,
+            riotComponentWrapper);
     }
 
     public pick(name: string) {
-        this.props.done(name);
-
-        this.props.unmount?.();
-    };
-
-    public close = () => {
-        this.props.done();
-
-        this.props.unmount?.();
+        this.close(name);
     }
-
-    public onUnmounted(props: ModalOpenThreadProps, state: ModalOpenThreadState) {}
 }
